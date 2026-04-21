@@ -7,9 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ══════════════════════════════════════════
-       RESET & ROOT
-    ══════════════════════════════════════════ */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     :root {
@@ -42,9 +39,7 @@
       overflow-x: hidden;
     }
 
-    /* ══════════════════════════════════════════
-       BACKGROUND
-    ══════════════════════════════════════════ */
+    /* ══ BACKGROUND ══ */
     .bg-canvas {
       position: fixed; inset: 0; z-index: 0;
       background:
@@ -58,7 +53,6 @@
       50%  { filter: hue-rotate(15deg) brightness(1.08); }
       100% { filter: hue-rotate(-10deg) brightness(0.95); }
     }
-
     .stars-layer {
       position: fixed; inset: 0; z-index: 1;
       pointer-events: none; overflow: hidden;
@@ -99,7 +93,6 @@
       75%{transform:translate(20px,40px) scale(1.03);}
     }
     @keyframes orbFade { 0%,100%{opacity:0.3;} 50%{opacity:0.55;} }
-
     .particles-layer {
       position: fixed; inset: 0; z-index: 1;
       pointer-events: none; overflow: hidden;
@@ -118,9 +111,7 @@
       60%{transform:scale(0.8);opacity:0.7;}
     }
 
-    /* ══════════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════════ */
+    /* ══ HEADER ══ */
     .site-header {
       position: relative; z-index: 20;
       text-align: center;
@@ -135,7 +126,6 @@
       animation: glowPulse 3.5s ease-in-out infinite;
     }
     @keyframes glowPulse { 0%,100%{opacity:0.4;width:300px;} 50%{opacity:1;width:650px;} }
-
     .subtitle-top {
       font-family:'Dancing Script',cursive;
       font-size:clamp(0.78rem,2vw,1rem);
@@ -191,9 +181,7 @@
     @keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:0.65;transform:translateY(0);}}
 
-    /* ══════════════════════════════════════════
-       READER SECTION
-    ══════════════════════════════════════════ */
+    /* ══ READER ══ */
     .reader-section {
       position: relative; z-index: 20;
       padding: 0 0 30px;
@@ -201,39 +189,26 @@
       align-items: center; gap: 16px;
       width: 100%;
     }
-
-    /* ══════════════════════════════════════════
-       BOOK SCENE — full width on mobile
-    ══════════════════════════════════════════ */
     .book-scene {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      /* No horizontal padding — buttons sit at edges */
       gap: 0;
     }
-
-    /* ── NAV BUTTONS ── */
     .nav-btn {
-      /* Fixed narrow width so book gets maximum space */
       flex: 0 0 40px;
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--glass-bg);
       border: 1px solid var(--glass-bd);
       backdrop-filter: blur(12px);
-      color: var(--white);
-      font-size: 1.6rem;
+      color: var(--white); font-size: 1.6rem;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; user-select: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-      /* Ensure buttons are always clickable — above everything */
-      position: relative;
-      z-index: 50;
-      /* Prevent button from shrinking */
+      position: relative; z-index: 50;
       flex-shrink: 0;
     }
     .nav-btn:hover:not(:disabled) {
@@ -243,48 +218,25 @@
       box-shadow: 0 0 18px rgba(201,168,76,0.5);
     }
     .nav-btn:disabled { opacity: 0.18; cursor: not-allowed; transform: none; }
-
-    /* ── BOOK WRAPPER ── */
     .book-wrapper {
-      /* Takes all remaining space between buttons */
-      flex: 1;
-      min-width: 0;
+      flex: 1; min-width: 0;
       display: flex; flex-direction: column;
       align-items: center; gap: 14px;
-      /* Small horizontal padding so book doesn't touch buttons */
       padding: 0 6px;
     }
-
-    /* ── THE BOOK CONTAINER ── */
     .book {
       position: relative;
       perspective: 2000px;
       width: 100%;
-      display: flex;
-      justify-content: center;
+      display: flex; justify-content: center;
     }
-
-    /* ══════════════════════════════════════════
-       FLIP STAGE
-       KEY FIX: width = 100% of book-wrapper
-       so it fills all available space on mobile
-    ══════════════════════════════════════════ */
     .flip-stage {
       position: relative;
-      /* Full width of the wrapper — no fixed px cap on mobile */
       width: 100%;
-      /* Height driven by content — no aspect-ratio clipping */
       transform-style: preserve-3d;
     }
-
-    /* ══════════════════════════════════════════
-       PAGES
-       KEY FIX: Both pages stack via CSS grid
-       so page-back doesn't break layout
-    ══════════════════════════════════════════ */
     .pages-stack {
       display: grid;
-      /* Both pages occupy same grid cell — they overlap */
       grid-template-areas: "page";
       width: 100%;
     }
@@ -296,10 +248,8 @@
       backface-visibility: hidden;
       transform-origin: left center;
       background: var(--cream);
-      /* Prevent pages from intercepting clicks when hidden */
       pointer-events: none;
     }
-    /* Only front page receives clicks */
     .page-front {
       z-index: 2;
       box-shadow:
@@ -308,12 +258,7 @@
         0 20px 50px rgba(0,0,0,0.4);
       pointer-events: auto;
     }
-    .page-back {
-      z-index: 1;
-      box-shadow: -3px 0 10px rgba(0,0,0,0.15);
-    }
-
-    /* Paper texture layers */
+    .page-back { z-index: 1; box-shadow: -3px 0 10px rgba(0,0,0,0.15); }
     .page-surface {
       position: absolute; inset: 0; pointer-events: none; z-index: 0;
       background: linear-gradient(160deg,#fefaf2 0%,#fdf6e3 40%,#f9edd5 100%);
@@ -336,15 +281,11 @@
       background: linear-gradient(90deg,transparent,rgba(0,0,0,0.05));
       pointer-events: none; z-index: 2;
     }
-
-    /* Page content */
     .page-content {
       position: relative; z-index: 3;
       padding: 28px 28px 28px 58px;
       display: flex; flex-direction: column;
     }
-
-    /* Page curl */
     .page-curl {
       position: absolute; bottom:0; right:0;
       width:0; height:0; border-style:solid;
@@ -356,8 +297,6 @@
       border-width:0 0 48px 48px;
       border-color:transparent transparent rgba(0,0,0,0.14) transparent;
     }
-
-    /* ── FLIP ANIMATIONS ── */
     .flip-stage.going-next .page-front {
       animation: flipToNext 0.75s var(--ease-flip) forwards;
     }
@@ -374,16 +313,12 @@
       55% { transform:rotateY(-90deg);  box-shadow:-28px 0 55px rgba(0,0,0,0.6); }
       100%{ transform:rotateY(0deg);    box-shadow:-4px 0 14px rgba(0,0,0,0.2),6px 6px 30px rgba(0,0,0,0.45); }
     }
-
-    /* Book spine */
     .book-spine {
       position: absolute; left:0; top:0; bottom:0; width:20px;
       background: linear-gradient(180deg,#b08050 0%,#7a4f2a 20%,#9a6840 50%,#6a3f1e 75%,#b08050 100%);
       border-radius: 4px 0 0 4px;
       box-shadow: inset -4px 0 10px rgba(0,0,0,0.5), 2px 0 6px rgba(0,0,0,0.4);
-      z-index: 6;
-      /* Spine must not block clicks */
-      pointer-events: none;
+      z-index: 6; pointer-events: none;
     }
     .book-floor-shadow {
       position: absolute; bottom:-26px; left:4%;
@@ -392,15 +327,12 @@
       filter: blur(12px); z-index:0; pointer-events:none;
     }
 
-    /* ══════════════════════════════════════════
-       PAGE TYPOGRAPHY — fluid sizes
-    ══════════════════════════════════════════ */
+    /* ══ PAGE TYPOGRAPHY ══ */
     .page-chapter {
       font-family:'Dancing Script',cursive;
       font-size:clamp(0.62rem,2.5vw,0.9rem);
       color:var(--gold); letter-spacing:2.5px;
-      text-transform:uppercase;
-      margin-bottom:7px; opacity:0.85;
+      text-transform:uppercase; margin-bottom:7px; opacity:0.85;
     }
     .page-title {
       font-family:'Playfair Display',serif;
@@ -409,35 +341,26 @@
       margin-bottom:10px; font-weight:700;
     }
     .page-title em { font-style:italic; color:var(--ink-soft); }
-
-    .page-divider {
-      display:flex; align-items:center; gap:7px;
-      margin-bottom:10px;
-    }
+    .page-divider { display:flex; align-items:center; gap:7px; margin-bottom:10px; }
     .page-divider-line {
       flex:1; height:1px;
       background:linear-gradient(90deg,transparent,var(--gold),transparent);
       opacity:0.4;
     }
     .page-divider-icon { font-size:0.7rem; color:var(--gold); opacity:0.6; }
-
     .page-body {
       font-family:'Crimson Text',serif;
       font-size:clamp(0.82rem,2.8vw,1.04rem);
-      color:var(--ink-soft);
-      line-height:1.85;
+      color:var(--ink-soft); line-height:1.85;
     }
     .page-body p { margin-bottom:0.8em; }
     .page-body p:last-child { margin-bottom:0; }
-
     .drop-cap::first-letter {
       font-family:'Playfair Display',serif;
       font-size:3em; font-weight:700;
       float:left; line-height:0.78;
-      margin:5px 6px 0 0;
-      color:var(--gold);
+      margin:5px 6px 0 0; color:var(--gold);
     }
-
     .page-quote {
       font-family:'Playfair Display',serif;
       font-style:italic;
@@ -447,28 +370,21 @@
       padding:5px 0 5px 12px;
       margin:9px 0; line-height:1.65;
     }
-
     .page-signature {
       font-family:'Dancing Script',cursive;
       font-size:clamp(0.82rem,2.5vw,1.08rem);
-      color:var(--ink-faint);
-      text-align:right; margin-top:10px;
+      color:var(--ink-faint); text-align:right; margin-top:10px;
     }
-
     .page-date {
       font-family:'Lato',sans-serif;
       font-size:clamp(0.58rem,1.8vw,0.7rem);
       color:var(--ink-faint); letter-spacing:1.5px;
-      text-transform:uppercase;
-      margin-bottom:9px; opacity:0.58;
+      text-transform:uppercase; margin-bottom:9px; opacity:0.58;
     }
-
-    /* Cover */
     .cover-art {
       text-align:center; padding:14px 0;
       display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:12px;
+      align-items:center; justify-content:center; gap:12px;
     }
     .cover-rose {
       font-size:clamp(2rem,8vw,3.8rem);
@@ -479,8 +395,7 @@
       50%{transform:translateY(-7px) rotate(5deg);}
     }
     .cover-title-main {
-      font-family:'Playfair Display',serif;
-      font-style:italic;
+      font-family:'Playfair Display',serif; font-style:italic;
       font-size:clamp(1.1rem,4.5vw,1.9rem);
       color:var(--ink); line-height:1.2;
     }
@@ -498,7 +413,6 @@
       font-size:clamp(0.72rem,1.8vw,0.88rem);
       color:var(--ink-faint); letter-spacing:1px;
     }
-
     .page-number-stamp {
       font-family:'Dancing Script',cursive;
       font-size:clamp(0.62rem,1.8vw,0.82rem);
@@ -506,7 +420,7 @@
       text-align:right; margin-top:10px;
     }
 
-    /* ── PAGE INDICATOR ── */
+    /* ══ PAGE INDICATOR ══ */
     .page-indicator {
       display:flex; align-items:center; gap:10px;
       font-family:'Dancing Script',cursive;
@@ -529,13 +443,11 @@
       transform:scale(1.3);
     }
     .pi-sep { color:rgba(255,255,255,0.25); font-size:0.7rem; font-family:'Lato',sans-serif; }
-
     .swipe-hint {
       font-size:0.72rem; color:rgba(255,255,255,0.33);
       animation:hintFade 5s ease-in-out 3s forwards; opacity:0;
     }
     @keyframes hintFade { 0%{opacity:0;}15%{opacity:1;}80%{opacity:1;}100%{opacity:0;} }
-
     .progress-wrap {
       width:90%; max-width:560px;
       height:4px; background:rgba(255,255,255,0.07);
@@ -548,9 +460,7 @@
       box-shadow:0 0 10px rgba(217,70,239,0.6);
     }
 
-    /* ══════════════════════════════════════════
-       SECTION DIVIDER
-    ══════════════════════════════════════════ */
+    /* ══ SECTION DIVIDER ══ */
     .section-divider {
       position:relative; z-index:20;
       text-align:center; padding:24px 0;
@@ -558,15 +468,12 @@
       font-size:1rem; letter-spacing:16px;
     }
 
-    /* ══════════════════════════════════════════
-       COMMENTS
-    ══════════════════════════════════════════ */
+    /* ══ COMMENTS ══ */
     .comments-section {
       position:relative; z-index:20;
       padding:32px 16px 52px;
     }
     .comments-inner { max-width:680px; margin:0 auto; }
-
     .comments-header { text-align:center; margin-bottom:30px; }
     .comments-title {
       font-family:'Playfair Display',serif;
@@ -581,7 +488,6 @@
       font-family:'Dancing Script',cursive;
       font-size:0.98rem; color:rgba(255,255,255,0.4);
     }
-
     .info-banner {
       background:rgba(217,70,239,0.1);
       border:1px solid rgba(217,70,239,0.28);
@@ -591,6 +497,7 @@
       text-align:center; line-height:1.5;
     }
 
+    /* ══ FORM ══ */
     .form-glass {
       background:var(--glass-bg);
       border:1px solid var(--glass-bd);
@@ -599,10 +506,20 @@
       box-shadow:0 18px 45px rgba(0,0,0,0.38);
       margin-bottom:32px;
     }
+
+    /* Form row — 2 columns on tablet+, 1 column on mobile */
     .form-row {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:13px; margin-bottom:13px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      margin-bottom: 13px;
     }
+    @media (max-width: 580px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .ig { display:flex; flex-direction:column; gap:5px; }
     .ig.full { position:relative; }
     .ig label {
@@ -610,7 +527,8 @@
       letter-spacing:2px; text-transform:uppercase;
       color:var(--gold-light);
     }
-    .ig input,.ig select,.ig textarea {
+    .ig input,
+    .ig textarea {
       background:rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.1);
       border-radius:var(--r-md);
@@ -618,17 +536,54 @@
       font-size:0.88rem; padding:10px 12px;
       outline:none; resize:none;
       transition:all 0.3s ease;
+      width: 100%;
+    }
+
+    /* ══ SELECT — fully contained, custom arrow ══ */
+    .ig select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-md);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      padding: 10px 36px 10px 12px;
+      outline: none;
+      transition: all 0.3s ease;
+      /* Remove native arrow */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      /* Custom gold arrow */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f0d080' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px;
+      /* Prevent overflow */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      /* Keep glass background alongside arrow image */
+      background-color: rgba(255,255,255,0.05);
+    }
+    .ig select option {
+      background: var(--purple-mid);
+      color: var(--white);
     }
     .ig input::placeholder,.ig textarea::placeholder { color:rgba(255,255,255,0.24); }
-    .ig select option { background:var(--purple-mid); }
-    .ig input:focus,.ig select:focus,.ig textarea:focus {
+    .ig input:focus,
+    .ig select:focus,
+    .ig textarea:focus {
       border-color:var(--pink-dream);
-      background:rgba(255,255,255,0.08);
+      background-color:rgba(255,255,255,0.08);
       box-shadow:0 0 0 3px rgba(217,70,239,0.14);
     }
     .char-count {
       position:absolute; bottom:10px; right:11px;
       font-size:0.65rem; color:rgba(255,255,255,0.24);
+      pointer-events: none;
     }
     .submit-btn {
       position:relative; width:100%; margin-top:13px;
@@ -652,6 +607,7 @@
     }
     .submit-btn:hover .btn-shine { left:100%; }
 
+    /* ══ COMMENTS LIST ══ */
     .comments-loading {
       text-align:center; padding:28px;
       font-family:'Dancing Script',cursive;
@@ -659,7 +615,6 @@
       animation:pulse 1.5s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
-
     .comments-stats {
       text-align:center; margin-bottom:16px;
       font-family:'Dancing Script',cursive;
@@ -671,7 +626,6 @@
       font-family:'Dancing Script',cursive;
       font-size:1.08rem; color:rgba(255,255,255,0.24);
     }
-
     .comment-card {
       background:var(--glass-bg);
       border:1px solid var(--glass-bd);
@@ -706,9 +660,7 @@
     .card-mood { font-size:1.3rem;flex-shrink:0; }
     .card-text { font-size:0.88rem;line-height:1.7;color:rgba(255,255,255,0.73); }
 
-    /* ══════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════ */
+    /* ══ FOOTER ══ */
     .site-footer {
       position:relative; z-index:20;
       text-align:center; padding:30px 20px;
@@ -718,36 +670,25 @@
     }
     .site-footer p+p { font-size:0.74rem;margin-top:4px;color:rgba(255,255,255,0.14); }
 
-    /* ══════════════════════════════════════════
-       RESPONSIVE BREAKPOINTS
-    ══════════════════════════════════════════ */
-
-    /* Mobile — small phones */
+    /* ══ RESPONSIVE ══ */
     @media(max-width:380px) {
-      .nav-btn { flex:0 0 34px; width:34px; height:34px; font-size:1.3rem; }
-      .book-wrapper { padding:0 4px; }
-      .page-content { padding:20px 16px 20px 32px; }
-      .page-margin { left:26px; }
+      .nav-btn { flex:0 0 32px; width:32px; height:32px; font-size:1.2rem; }
+      .book-wrapper { padding:0 3px; }
+      .page-content { padding:18px 14px 18px 30px; }
+      .page-margin { left:24px; }
     }
-
-    /* Mobile — regular phones */
     @media(min-width:381px) and (max-width:580px) {
-      .nav-btn { flex:0 0 38px; width:38px; height:38px; font-size:1.5rem; }
-      .book-wrapper { padding:0 5px; }
-      .page-content { padding:24px 20px 24px 42px; }
-      .page-margin { left:36px; }
-      .form-row { grid-template-columns:1fr; }
+      .nav-btn { flex:0 0 36px; width:36px; height:36px; font-size:1.4rem; }
+      .book-wrapper { padding:0 4px; }
+      .page-content { padding:22px 18px 22px 40px; }
+      .page-margin { left:34px; }
       .feather { display:none; }
     }
-
-    /* Tablet */
     @media(min-width:581px) and (max-width:900px) {
       .nav-btn { flex:0 0 44px; width:44px; height:44px; }
-      .flip-stage { max-width:420px; }
+      .flip-stage { max-width:400px; }
       .book-wrapper { padding:0 8px; }
     }
-
-    /* Desktop */
     @media(min-width:901px) {
       .nav-btn { flex:0 0 52px; width:52px; height:52px; font-size:2rem; }
       .flip-stage { max-width:520px; }
@@ -756,8 +697,6 @@
       .page-content { padding:34px 34px 34px 64px; }
       .page-margin { left:54px; }
     }
-
-    /* Large desktop */
     @media(min-width:1200px) {
       .flip-stage { max-width:560px; }
     }
@@ -767,7 +706,6 @@
     ::-webkit-scrollbar-thumb { background:var(--purple-soft);border-radius:3px; }
     ::-webkit-scrollbar-thumb:hover { background:var(--pink-dream); }
     ::selection { background:rgba(217,70,239,0.3);color:var(--white); }
-
     @keyframes shake {
       0%,100%{transform:translateX(0);}
       20%{transform:translateX(-7px);}
@@ -779,7 +717,6 @@
 </head>
 <body>
 
-<!-- ═══ BACKGROUND ═══ -->
 <div class="bg-canvas"></div>
 <div class="stars-layer"     id="starsLayer"></div>
 <div class="particles-layer" id="particlesLayer"></div>
@@ -807,20 +744,14 @@
 
 <!-- ═══ BOOK READER ═══ -->
 <main class="reader-section">
-
   <div class="book-scene">
-
-    <!-- PREV BUTTON — outside book wrapper so it never overlaps -->
     <button class="nav-btn" id="prevBtn" aria-label="Previous page" disabled>‹</button>
 
     <div class="book-wrapper">
       <div class="book" id="book">
         <div class="flip-stage" id="flipStage">
-
-          <!-- Both pages in a grid stack -->
           <div class="pages-stack">
 
-            <!-- BACK PAGE (revealed during flip) -->
             <div class="page page-back" id="pageBack">
               <div class="page-surface"></div>
               <div class="page-lines"></div>
@@ -830,7 +761,6 @@
               <div class="page-curl"></div>
             </div>
 
-            <!-- FRONT PAGE (current — always on top) -->
             <div class="page page-front" id="pageFront">
               <div class="page-surface"></div>
               <div class="page-lines"></div>
@@ -840,34 +770,26 @@
               <div class="page-curl"></div>
             </div>
 
-          </div><!-- /pages-stack -->
-
+          </div>
           <div class="book-spine"></div>
           <div class="book-floor-shadow"></div>
+        </div>
+      </div>
 
-        </div><!-- /flip-stage -->
-      </div><!-- /book -->
-
-      <!-- PAGE INDICATOR -->
       <div class="page-indicator">
         <div class="pi-dots" id="piDots"></div>
         <span class="pi-sep">·</span>
         <span id="piText" style="font-size:0.85rem;">Page 1 of 8</span>
       </div>
-
       <div class="swipe-hint">👆 Swipe left / right &nbsp;·&nbsp; or use arrow keys</div>
+    </div>
 
-    </div><!-- /book-wrapper -->
-
-    <!-- NEXT BUTTON -->
     <button class="nav-btn" id="nextBtn" aria-label="Next page">›</button>
-
-  </div><!-- /book-scene -->
+  </div>
 
   <div class="progress-wrap">
     <div class="progress-fill" id="progressFill"></div>
   </div>
-
 </main>
 
 <div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
@@ -875,7 +797,6 @@
 <!-- ═══ COMMENTS ═══ -->
 <section class="comments-section">
   <div class="comments-inner">
-
     <div class="comments-header">
       <h2 class="comments-title">
         <span class="quill-icon">🪶</span> Reader's Corner
@@ -925,7 +846,6 @@
     </div>
     <div id="commentsList"></div>
     <div class="no-comments" id="noComments">🌙 Be the first to leave your thoughts…</div>
-
   </div>
 </section>
 
@@ -936,14 +856,14 @@
 </footer>
 
 <script>
-/* ════════════════════════════════════════════════════════
-   ▼ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW ▼
-════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznD9eZqgi7Hl3nIaCvn5SSNFo_AYYiFWCxHg2T3RWNItgIlM5RRxw2iuI7sDVmY60sBQ/exec";  // ← e.g. "https://script.google.com/macros/s/ABC.../exec"
+/* ══════════════════════════════════════════════════════
+   PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+══════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznD9eZqgi7Hl3nIaCvn5SSNFo_AYYiFWCxHg2T3RWNItgIlM5RRxw2iuI7sDVmY60sBQ/exec";  // ← "https://script.google.com/macros/s/XXX/exec"
 
-/* ════════════════════════════════════════════════════════
-   BOOK PAGES DATA
-════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   PAGES
+══════════════════════════════════════════════════════ */
 const PAGES = [
   {
     html:`
@@ -1070,16 +990,16 @@ const PAGES = [
   }
 ];
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    STATE
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 let current    = 0;
 let isFlipping = false;
 const total    = PAGES.length;
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    DOM
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 const flipStage    = document.getElementById('flipStage');
 const frontContent = document.getElementById('frontContent');
 const backContent  = document.getElementById('backContent');
@@ -1089,16 +1009,16 @@ const progressFill = document.getElementById('progressFill');
 const piDots       = document.getElementById('piDots');
 const piText       = document.getElementById('piText');
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    RENDER
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function renderPage(idx, container) {
   container.innerHTML = (idx >= 0 && idx < total) ? PAGES[idx].html : '';
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    DOTS
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function buildDots() {
   piDots.innerHTML = '';
   PAGES.forEach((_, i) => {
@@ -1113,9 +1033,9 @@ function updateDots() {
     d.classList.toggle('active', i === current));
 }
 
-/* ════════════════════════════════════════════════════════
-   UI UPDATE
-════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   UI
+══════════════════════════════════════════════════════ */
 function updateUI() {
   prevBtn.disabled = current <= 0;
   nextBtn.disabled = current >= total - 1;
@@ -1124,9 +1044,9 @@ function updateUI() {
   updateDots();
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    FLIP NEXT
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function goNext() {
   if (isFlipping || current >= total - 1) return;
   isFlipping = true;
@@ -1142,9 +1062,9 @@ function goNext() {
   }, 780);
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    FLIP PREV
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function goPrev() {
   if (isFlipping || current <= 0) return;
   isFlipping = true;
@@ -1160,9 +1080,9 @@ function goPrev() {
   }, 780);
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    JUMP
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function jumpTo(idx) {
   if (isFlipping || idx === current) return;
   const dir = idx > current ? 'going-next' : 'going-prev';
@@ -1179,23 +1099,23 @@ function jumpTo(idx) {
   }, 780);
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    BUTTON EVENTS
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 prevBtn.addEventListener('click', goPrev);
 nextBtn.addEventListener('click', goNext);
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    KEYBOARD
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
   if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); goNext(); }
   if (['ArrowLeft','ArrowUp'].includes(e.key))         { e.preventDefault(); goPrev(); }
 });
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    TOUCH SWIPE
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 let tx=0, ty=0, tt=0;
 document.getElementById('book').addEventListener('touchstart', e=>{
   tx=e.touches[0].clientX; ty=e.touches[0].clientY; tt=Date.now();
@@ -1208,9 +1128,9 @@ document.getElementById('book').addEventListener('touchend', e=>{
   }
 },{passive:true});
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    BACKGROUND FX
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function createStars(){
   const l=document.getElementById('starsLayer');
   const n=window.innerWidth<600?50:110;
@@ -1253,184 +1173,247 @@ function createSparkles(){
   }
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    COMMENTS — HELPERS
-════════════════════════════════════════════════════════ */
-const CKEY='diary_comments_v4';
-const isOnline=()=>!!APPS_SCRIPT_URL;
-const loadLocal=()=>{try{return JSON.parse(localStorage.getItem(CKEY))||[];}catch{return[];}};
-const saveLocal=a=>localStorage.setItem(CKEY,JSON.stringify(a));
+══════════════════════════════════════════════════════ */
+const CKEY      = 'diary_comments_v4';
+const isOnline  = () => !!APPS_SCRIPT_URL;
+const loadLocal = () => { try{ return JSON.parse(localStorage.getItem(CKEY))||[]; }catch{ return []; } };
+const saveLocal = a  => localStorage.setItem(CKEY, JSON.stringify(a));
 
 function timeAgo(ts){
-  const d=Date.now()-Number(ts);
-  if(d<60000)     return 'Just now';
-  if(d<3600000)   return Math.floor(d/60000)+'m ago';
-  if(d<86400000)  return Math.floor(d/3600000)+'h ago';
-  if(d<604800000) return Math.floor(d/86400000)+'d ago';
+  const d = Date.now() - Number(ts);
+  if(d < 60000)     return 'Just now';
+  if(d < 3600000)   return Math.floor(d/60000)+'m ago';
+  if(d < 86400000)  return Math.floor(d/3600000)+'h ago';
+  if(d < 604800000) return Math.floor(d/86400000)+'d ago';
   return new Date(Number(ts)).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
-const initials=n=>(n||'A').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'A';
-const GRADS=['linear-gradient(135deg,#7c3aed,#ec4899)','linear-gradient(135deg,#0891b2,#7c3aed)','linear-gradient(135deg,#059669,#0891b2)','linear-gradient(135deg,#d97706,#ec4899)','linear-gradient(135deg,#dc2626,#7c3aed)','linear-gradient(135deg,#0d9488,#9333ea)'];
-const grad=n=>{let h=0;for(const c of(n||'A'))h=(h+c.charCodeAt(0))%GRADS.length;return GRADS[h];};
-const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+const initials = n => (n||'A').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'A';
+const GRADS = [
+  'linear-gradient(135deg,#7c3aed,#ec4899)',
+  'linear-gradient(135deg,#0891b2,#7c3aed)',
+  'linear-gradient(135deg,#059669,#0891b2)',
+  'linear-gradient(135deg,#d97706,#ec4899)',
+  'linear-gradient(135deg,#dc2626,#7c3aed)',
+  'linear-gradient(135deg,#0d9488,#9333ea)'
+];
+const grad = n => { let h=0; for(const c of(n||'A')) h=(h+c.charCodeAt(0))%GRADS.length; return GRADS[h]; };
+const esc  = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 
-/* ════════════════════════════════════════════════════════
-   COMMENTS — GOOGLE SHEETS (CORS-safe)
-   
-   POST uses no-cors (fire & forget — no response body)
-   GET uses jsonp-style via URL params to avoid CORS
-════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   COMMENTS — FETCH FROM GOOGLE SHEETS
+══════════════════════════════════════════════════════ */
 async function fetchComments(){
   if(!isOnline()) return null;
   try{
-    /* Add cache-bust so we always get fresh data */
-    const url=APPS_SCRIPT_URL+'?action=get&t='+Date.now();
-    const res=await fetch(url,{method:'GET'});
-    const data=await res.json();
+    const res  = await fetch(APPS_SCRIPT_URL + '?action=get&t=' + Date.now());
+    const data = await res.json();
     return data.success ? data.comments : null;
   }catch(e){
-    console.warn('Fetch failed:',e);
+    console.warn('Fetch failed:', e);
     return null;
   }
 }
 
+/* ══════════════════════════════════════════════════════
+   COMMENTS — POST TO GOOGLE SHEETS
+══════════════════════════════════════════════════════ */
 async function postComment(obj){
   if(!isOnline()) return false;
   try{
-    /* no-cors: request goes through, we just can't read the response */
-    await fetch(APPS_SCRIPT_URL,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify(obj)
+    await fetch(APPS_SCRIPT_URL, {
+      method  : 'POST',
+      mode    : 'no-cors',
+      headers : { 'Content-Type': 'text/plain' },
+      body    : JSON.stringify(obj)
     });
     return true;
   }catch(e){
-    console.warn('Post failed:',e);
+    console.warn('Post failed:', e);
     return false;
   }
 }
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    COMMENTS — RENDER CARDS
-════════════════════════════════════════════════════════ */
-function renderCards(arr){
-  const list=document.getElementById('commentsList');
-  const none=document.getElementById('noComments');
-  document.getElementById('commentCount').textContent=arr.length;
-  if(!arr.length){list.innerHTML='';none.style.display='block';return;}
-  none.style.display='none';
-  list.innerHTML='';
-  [...arr].reverse().forEach((c,i)=>{
-    const card=document.createElement('div');
-    card.className='comment-card';
-    card.style.animationDelay=`${i*0.06}s`;
-    card.innerHTML=`
-      <div class="card-header">
-        <div class="card-avatar" style="background:${grad(c.name)}">${initials(c.name)}</div>
-        <div class="card-meta">
-          <div class="card-name">${esc(c.name||'Anonymous Reader')}</div>
-          <div class="card-time">${timeAgo(c.timestamp)}</div>
+   KEY FIX: saves & restores scroll position
+   so page never jumps when DOM is updated
+══════════════════════════════════════════════════════ */
+function renderCards(arr, restoreScroll){
+  /* Save scroll before touching DOM */
+  const sy = window.scrollY;
+
+  const list = document.getElementById('commentsList');
+  const none = document.getElementById('noComments');
+  document.getElementById('commentCount').textContent = arr.length;
+
+  if(!arr.length){
+    list.innerHTML = '';
+    none.style.display = 'block';
+  } else {
+    none.style.display = 'none';
+    list.innerHTML = '';
+    [...arr].reverse().forEach((c,i) => {
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+      card.style.animationDelay = `${i*0.06}s`;
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-avatar" style="background:${grad(c.name)}">${initials(c.name)}</div>
+          <div class="card-meta">
+            <div class="card-name">${esc(c.name||'Anonymous Reader')}</div>
+            <div class="card-time">${timeAgo(c.timestamp)}</div>
+          </div>
+          <div class="card-mood">${c.mood||'😊'}</div>
         </div>
-        <div class="card-mood">${c.mood||'😊'}</div>
-      </div>
-      <p class="card-text">${esc(c.text)}</p>
-    `;
-    list.appendChild(card);
-  });
-}
-
-/* ════════════════════════════════════════════════════════
-   COMMENTS — LOAD
-════════════════════════════════════════════════════════ */
-async function loadAndRenderComments(){
-  const list=document.getElementById('commentsList');
-  list.innerHTML='<div class="comments-loading">✦ Loading voices…</div>';
-  if(isOnline()){
-    const remote=await fetchComments();
-    if(remote!==null){renderCards(remote);return;}
+        <p class="card-text">${esc(c.text)}</p>
+      `;
+      list.appendChild(card);
+    });
   }
-  document.getElementById('infoBanner').style.display='block';
-  renderCards(loadLocal());
+
+  /* Restore scroll position — prevents page jumping */
+  if(restoreScroll !== false){
+    window.scrollTo({ top: sy, behavior: 'instant' });
+  }
 }
 
-/* ════════════════════════════════════════════════════════
-   COMMENTS — SUBMIT
-════════════════════════════════════════════════════════ */
-document.getElementById('submitBtn').addEventListener('click',async()=>{
-  const nEl=document.getElementById('userName');
-  const mEl=document.getElementById('userMood');
-  const cEl=document.getElementById('userComment');
-  const txt=cEl.value.trim();
+/* ══════════════════════════════════════════════════════
+   COMMENTS — LOAD (initial page load only)
+   Does NOT restore scroll on first load — that's fine
+   because user hasn't scrolled yet
+══════════════════════════════════════════════════════ */
+async function loadAndRenderComments(){
+  const list = document.getElementById('commentsList');
+  list.innerHTML = '<div class="comments-loading">✦ Loading voices…</div>';
 
+  if(isOnline()){
+    const remote = await fetchComments();
+    if(remote !== null){
+      /* Pass false — no scroll restore needed on initial load */
+      renderCards(remote, false);
+      return;
+    }
+  }
+
+  /* Fallback to localStorage */
+  document.getElementById('infoBanner').style.display = 'block';
+  renderCards(loadLocal(), false);
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — SILENT RELOAD (after posting)
+   Always restores scroll so user stays in place
+══════════════════════════════════════════════════════ */
+async function silentReload(){
+  if(isOnline()){
+    const remote = await fetchComments();
+    if(remote !== null){
+      renderCards(remote, true);  /* true = restore scroll */
+      return;
+    }
+  }
+  renderCards(loadLocal(), true);
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — SUBMIT
+══════════════════════════════════════════════════════ */
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const nEl = document.getElementById('userName');
+  const mEl = document.getElementById('userMood');
+  const cEl = document.getElementById('userComment');
+  const txt = cEl.value.trim();
+
+  /* Validate */
   if(!txt){
-    cEl.style.animation='none';
-    cEl.style.borderColor='#ef4444';
-    cEl.style.boxShadow='0 0 0 3px rgba(239,68,68,0.2)';
-    cEl.offsetHeight;
-    cEl.style.animation='shake 0.4s ease';
-    setTimeout(()=>{cEl.style.borderColor='';cEl.style.boxShadow='';cEl.style.animation='';},1000);
+    cEl.style.animation   = 'none';
+    cEl.style.borderColor = '#ef4444';
+    cEl.style.boxShadow   = '0 0 0 3px rgba(239,68,68,0.2)';
+    cEl.offsetHeight; /* force reflow */
+    cEl.style.animation   = 'shake 0.4s ease';
+    setTimeout(()=>{
+      cEl.style.borderColor = '';
+      cEl.style.boxShadow   = '';
+      cEl.style.animation   = '';
+    }, 1000);
     return;
   }
 
-  const btn=document.getElementById('submitBtn');
-  const sp=btn.querySelector('.btn-text');
-  btn.disabled=true;
-  sp.textContent='✦ Posting…';
+  const btn = document.getElementById('submitBtn');
+  const sp  = btn.querySelector('.btn-text');
+  btn.disabled     = true;
+  sp.textContent   = '✦ Posting…';
 
-  const obj={
-    name:nEl.value.trim()||'Anonymous Reader',
-    mood:mEl.value,
-    text:txt,
-    timestamp:Date.now()
+  const obj = {
+    name      : nEl.value.trim() || 'Anonymous Reader',
+    mood      : mEl.value,
+    text      : txt,
+    timestamp : Date.now()
   };
+
+  /* Save scroll NOW before any DOM changes */
+  const scrollY = window.scrollY;
 
   if(isOnline()){
     await postComment(obj);
-    /* With no-cors we can't confirm success, so we:
-       1. Optimistically show the comment locally
-       2. Reload from server after a short delay */
-    sp.textContent='✦ Posted! ✓';
-    btn.style.background='linear-gradient(135deg,#059669,#0891b2)';
-    nEl.value=''; cEl.value='';
-    document.getElementById('charCount').textContent='0 / 500';
 
-    /* Show optimistic local comment immediately */
-    const localArr=loadLocal();
+    /* Clear form */
+    nEl.value = '';
+    cEl.value = '';
+    document.getElementById('charCount').textContent = '0 / 500';
+
+    /* Optimistic update — show comment immediately, keep scroll */
+    const localArr = loadLocal();
     localArr.push(obj);
     saveLocal(localArr);
-    renderCards(localArr);
+    renderCards(localArr, true);
 
-    /* Then reload from server after 2s to get all public comments */
-    setTimeout(async()=>{
-      btn.disabled=false;
-      sp.textContent='✦ Leave Your Mark';
-      btn.style.background='';
-      await loadAndRenderComments();
-    },2000);
+    /* Success feedback */
+    sp.textContent       = '✦ Posted! ✓';
+    btn.style.background = 'linear-gradient(135deg,#059669,#0891b2)';
+
+    /* After 2s — silently reload from server to get all public comments */
+    setTimeout(async () => {
+      btn.disabled         = false;
+      sp.textContent       = '✦ Leave Your Mark';
+      btn.style.background = '';
+      await silentReload(); /* scroll-safe reload */
+    }, 2000);
+
     return;
   }
 
-  /* Local-only fallback */
-  const arr=loadLocal();
+  /* ── Local-only fallback ── */
+  const arr = loadLocal();
   arr.push(obj);
   saveLocal(arr);
-  sp.textContent='✦ Saved Locally ✓';
-  btn.style.background='linear-gradient(135deg,#d97706,#dc2626)';
-  nEl.value=''; cEl.value='';
-  document.getElementById('charCount').textContent='0 / 500';
-  renderCards(arr);
-  setTimeout(()=>{btn.disabled=false;sp.textContent='✦ Leave Your Mark';btn.style.background='';},2200);
-  setTimeout(()=>document.getElementById('commentsList').scrollIntoView({behavior:'smooth',block:'nearest'}),300);
+
+  nEl.value = '';
+  cEl.value = '';
+  document.getElementById('charCount').textContent = '0 / 500';
+
+  sp.textContent       = '✦ Saved Locally ✓';
+  btn.style.background = 'linear-gradient(135deg,#d97706,#dc2626)';
+
+  renderCards(arr, true); /* scroll-safe */
+
+  setTimeout(() => {
+    btn.disabled         = false;
+    sp.textContent       = '✦ Leave Your Mark';
+    btn.style.background = '';
+  }, 2200);
 });
 
-document.getElementById('userComment').addEventListener('input',function(){
-  document.getElementById('charCount').textContent=`${this.value.length} / 500`;
+/* Char counter */
+document.getElementById('userComment').addEventListener('input', function(){
+  document.getElementById('charCount').textContent = `${this.value.length} / 500`;
 });
 
-/* ════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    INIT
-════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 createStars();
 createShootingStars();
 createParticles();
