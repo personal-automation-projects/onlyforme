@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Anonymous Person's Diary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ══════════════════════════════════════════
+       RESET & ROOT
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --cream:       #fdf8f0;
+      --cream-dark:  #f5ead8;
+      --ink:         #2c1810;
+      --ink-soft:    #4a3728;
+      --ink-faint:   #7a6558;
+      --gold:        #c9a84c;
+      --gold-light:  #f0d080;
+      --gold-pale:   #faecc8;
+      --purple-deep: #0f0220;
+      --purple-mid:  #1e0840;
+      --purple-soft: #5b2d8e;
+      --pink-dream:  #d946ef;
+      --blue-dream:  #6366f1;
+      --rose-dream:  #f43f5e;
+      --teal-dream:  #0d9488;
+      --white:       #ffffff;
+      --glass-bg:    rgba(255,255,255,0.06);
+      --glass-bd:    rgba(255,255,255,0.13);
+      --shadow-book: 
+        -6px 0 18px rgba(0,0,0,0.25),
+         8px 8px 40px rgba(0,0,0,0.55),
+         0 30px 70px rgba(0,0,0,0.5);
+      --r-lg: 18px;
+      --r-md: 10px;
+      --ease-flip: cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--purple-deep);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════════
+       ANIMATED BACKGROUND
+    ══════════════════════════════════════════ */
+
+    /* Deep space gradient that slowly shifts */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, #2d0a5e 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, #0a1a4e 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #1a0533 0%, #050010 100%);
+      animation: bgShift 20s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0%   { filter: hue-rotate(0deg) brightness(1); }
+      50%  { filter: hue-rotate(15deg) brightness(1.08); }
+      100% { filter: hue-rotate(-10deg) brightness(0.95); }
+    }
+
+    /* Stars layer */
+    .stars-layer {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none; overflow: hidden;
+    }
+    .star {
+      position: absolute; border-radius: 50%;
+      background: white;
+      animation: starTwinkle ease-in-out infinite;
+    }
+    @keyframes starTwinkle {
+      0%,100% { opacity: 0.08; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.6); }
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, white, transparent);
+      animation: shoot linear infinite;
+      opacity: 0;
+    }
+    @keyframes shoot {
+      0%   { transform: translateX(-200px) translateY(0) rotate(-30deg); opacity: 0; }
+      5%   { opacity: 1; }
+      40%  { opacity: 0.8; }
+      60%  { opacity: 0; }
+      100% { transform: translateX(110vw) translateY(200px) rotate(-30deg); opacity: 0; }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(70px); opacity: 0;
+      pointer-events: none; z-index: 1;
+      animation: orbFloat ease-in-out infinite, orbFade ease-in-out infinite;
+    }
+    .orb1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.6), transparent 70%);
+      top: -200px; left: -200px;
+      animation-duration: 18s, 9s;
+      animation-delay: 0s, 0s;
+    }
+    .orb2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(217,70,239,0.45), transparent 70%);
+      top: 30%; right: -180px;
+      animation-duration: 22s, 11s;
+      animation-delay: -6s, -3s;
+    }
+    .orb3 {
+      width: 450px; height: 450px;
+      background: radial-gradient(circle, rgba(6,182,212,0.4), transparent 70%);
+      bottom: -100px; left: 20%;
+      animation-duration: 16s, 8s;
+      animation-delay: -12s, -4s;
+    }
+    .orb4 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(244,63,94,0.35), transparent 70%);
+      top: 60%; left: -100px;
+      animation-duration: 20s, 10s;
+      animation-delay: -4s, -2s;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      25%      { transform: translate(40px,-50px) scale(1.06); }
+      50%      { transform: translate(-30px,30px) scale(0.94); }
+      75%      { transform: translate(20px,40px) scale(1.03); }
+    }
+    @keyframes orbFade {
+      0%,100% { opacity: 0.3; }
+      50%      { opacity: 0.55; }
+    }
+
+    /* Floating particles */
+    .particles-layer {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none; overflow: hidden;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      animation: particleRise linear infinite;
+    }
+    @keyframes particleRise {
+      0%   { transform: translateY(105vh) scale(0) rotate(0deg);   opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 0.6; }
+      100% { transform: translateY(-8vh)  scale(1) rotate(360deg); opacity: 0; }
+    }
+
+    /* Magical dust sparkles */
+    .sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      animation: sparklePop ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes sparklePop {
+      0%,100% { transform: scale(0) rotate(0deg);   opacity: 0; }
+      30%      { transform: scale(1.5) rotate(90deg); opacity: 1; }
+      60%      { transform: scale(0.8) rotate(180deg); opacity: 0.7; }
+    }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .site-header {
+      position: relative; z-index: 20;
+      text-align: center;
+      padding: 48px 20px 40px;
+      overflow: hidden;
+    }
+    .header-inner { position: relative; z-index: 2; }
+
+    .header-glow {
+      position: absolute; bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      height: 2px; width: 500px;
+      background: linear-gradient(90deg,
+        transparent, var(--gold), var(--pink-dream), var(--blue-dream), var(--gold), transparent);
+      animation: glowPulse 3.5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.4; width: 300px; }
+      50%      { opacity: 1;   width: 650px; }
+    }
+
+    .subtitle-top {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--gold-light); letter-spacing: 4px;
+      margin-bottom: 14px;
+      opacity: 0; animation: fadeDown 1s ease 0.2s forwards;
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 6vw, 4.8rem);
+      line-height: 1.1; margin-bottom: 12px;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 0 14px;
+    }
+    .tw {
+      display: inline-block; opacity: 0;
+      background: linear-gradient(135deg, #fff 0%, #ddc8ff 45%, #f0d080 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(180,130,255,0.5));
+      animation: wordPop 0.9s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    .tw:nth-child(1){animation-delay:0.3s}
+    .tw:nth-child(2){animation-delay:0.55s}
+    .tw:nth-child(3){animation-delay:0.8s}
+    .tw:nth-child(4){animation-delay:1.05s}
+    .tw.hl {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--gold-light), var(--pink-dream), var(--blue-dream));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: wordPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 1.05s forwards,
+                 titleShimmer 4s ease-in-out 2.5s infinite;
+    }
+    @keyframes wordPop {
+      0%   { opacity:0; transform: translateY(45px) rotateX(-35deg) scale(0.85); }
+      100% { opacity:1; transform: translateY(0) rotateX(0) scale(1); }
+    }
+    @keyframes titleShimmer {
+      0%,100% { filter: drop-shadow(0 0 12px rgba(217,70,239,0.5)); }
+      50%      { filter: drop-shadow(0 0 32px rgba(217,70,239,1)); }
+    }
+
+    .subtitle-bottom {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.55); letter-spacing: 2px;
+      opacity: 0; animation: fadeUp 1s ease 1.8s forwards;
+    }
+
+    .feather { position: absolute; top: 50%; font-size: clamp(1.2rem,3vw,2.5rem); opacity: 0.25; }
+    .feather-l { left: 3%; animation: fL 4s ease-in-out infinite; }
+    .feather-r { right: 3%; animation: fR 4s ease-in-out infinite; }
+    @keyframes fL {
+      0%,100%{transform:translateY(-50%) rotate(-12deg);}
+      50%{transform:translateY(calc(-50% - 10px)) rotate(10deg);}
+    }
+    @keyframes fR {
+      0%,100%{transform:translateY(-50%) scaleX(-1) rotate(-12deg);}
+      50%{transform:translateY(calc(-50% - 10px)) scaleX(-1) rotate(10deg);}
+    }
+
+    @keyframes fadeDown {
+      from{opacity:0;transform:translateY(-18px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(18px);}
+      to{opacity:0.65;transform:translateY(0);}
+    }
+
+    /* ══════════════════════════════════════════
+       READER SECTION
+    ══════════════════════════════════════════ */
+    .reader-section {
+      position: relative; z-index: 20;
+      padding: 0 12px 36px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 18px;
+    }
+
+    /* ── BOOK SCENE ── */
+    .book-scene {
+      display: flex; align-items: center;
+      justify-content: center; gap: 14px;
+      width: 100%; max-width: 900px;
+    }
+
+    /* Nav buttons */
+    .nav-btn {
+      flex-shrink: 0;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(12px);
+      color: var(--white); font-size: 1.9rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; user-select: none;
+      transition: all 0.35s ease;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(201,168,76,0.28);
+      border-color: var(--gold);
+      transform: scale(1.12);
+      box-shadow: 0 0 22px rgba(201,168,76,0.5);
+    }
+    .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    /* Book wrapper */
+    .book-wrapper {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; gap: 16px;
+      min-width: 0;
+    }
+
+    /* ── THE BOOK ── */
+    .book {
+      position: relative;
+      perspective: 2200px;
+      width: 100%;
+      display: flex; justify-content: center;
+    }
+
+    /* Flip stage */
+    .flip-stage {
+      position: relative;
+      width: min(88vw, 580px);
+      /* 
+        Aspect ratio: classic book page ~= 3:4.2
+        This makes it tall enough to feel like a real book
+      */
+      aspect-ratio: 10 / 14;
+      transform-style: preserve-3d;
+    }
+
+    /* ── PAGES ── */
+    .page {
+      position: absolute; inset: 0;
+      border-radius: 3px 16px 16px 3px;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transform-origin: left center;
+    }
+
+    /* Page paper texture */
+    .page-surface {
+      position: absolute; inset: 0;
+      background:
+        /* subtle paper grain */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+        linear-gradient(160deg, #fefaf2 0%, #fdf6e3 40%, #f9edd5 100%);
+      /* Lined paper */
+      background-size: 300px 300px, 100% 100%;
+    }
+
+    /* Lined paper lines overlay */
+    .page-lines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        transparent 0px,
+        transparent 31px,
+        rgba(160,120,60,0.09) 32px
+      );
+      pointer-events: none;
+    }
+
+    /* Left margin red line */
+    .page-margin {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 52px; width: 1px;
+      background: rgba(220,80,80,0.18);
+      pointer-events: none;
+    }
+
+    /* Page shadow on right edge (depth) */
+    .page-edge-shadow {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; width: 18px;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06));
+      pointer-events: none;
+    }
+
+    /* Page content */
+    .page-content {
+      position: absolute; inset: 0;
+      padding: 36px 38px 36px 64px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      gap: 0;
+    }
+
+    /* Page curl bottom-right */
+    .page-curl {
+      position: absolute; bottom: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 0 28px 28px;
+      border-color: transparent transparent rgba(0,0,0,0.1) transparent;
+      transition: all 0.4s ease; z-index: 10;
+      filter: drop-shadow(-2px -2px 4px rgba(0,0,0,0.15));
+    }
+    .page:hover .page-curl {
+      border-width: 0 0 52px 52px;
+      border-color: transparent transparent rgba(0,0,0,0.16) transparent;
+    }
+
+    /* Front page (current) */
+    .page-front {
+      z-index: 2;
+      box-shadow: var(--shadow-book);
+    }
+    /* Back page (next page, revealed during flip) */
+    .page-back {
+      z-index: 1;
+      box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+    }
+
+    /* ── FLIP ANIMATIONS ── */
+    .flip-stage.going-next .page-front {
+      animation: flipToNext 0.8s var(--ease-flip) forwards;
+    }
+    .flip-stage.going-prev .page-back {
+      animation: flipToPrev 0.8s var(--ease-flip) forwards;
+    }
+    @keyframes flipToNext {
+      0%   { transform: rotateY(0deg);
+             box-shadow: var(--shadow-book); }
+      45%  { transform: rotateY(-90deg);
+             box-shadow: -30px 0 60px rgba(0,0,0,0.6); }
+      100% { transform: rotateY(-180deg);
+             box-shadow: none; }
+    }
+    @keyframes flipToPrev {
+      0%   { transform: rotateY(-180deg); box-shadow: none; }
+      55%  { transform: rotateY(-90deg);
+             box-shadow: -30px 0 60px rgba(0,0,0,0.6); }
+      100% { transform: rotateY(0deg);
+             box-shadow: var(--shadow-book); }
+    }
+
+    /* Book spine */
+    .book-spine {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 22px;
+      background: linear-gradient(180deg,
+        #b08050 0%, #7a4f2a 20%, #9a6840 50%,
+        #6a3f1e 75%, #b08050 100%);
+      border-radius: 4px 0 0 4px;
+      box-shadow: inset -5px 0 12px rgba(0,0,0,0.5),
+                  2px 0 8px rgba(0,0,0,0.45);
+      z-index: 6;
+    }
+
+    /* Book bottom shadow */
+    .book-floor-shadow {
+      position: absolute; bottom: -30px; left: 4%;
+      width: 92%; height: 40px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.65) 0%, transparent 70%);
+      filter: blur(14px); z-index: 0;
+    }
+
+    /* ── PAGE CONTENT TYPOGRAPHY ── */
+    .page-chapter {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+      color: var(--gold);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.8vw, 1.55rem);
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .page-title em {
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+    .page-divider {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 14px;
+    }
+    .page-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.5;
+    }
+    .page-divider-icon {
+      font-size: 0.75rem; color: var(--gold); opacity: 0.7;
+    }
+    .page-body {
+      font-family: 'Crimson Text', serif;
+      font-size: clamp(0.88rem, 2.2vw, 1.08rem);
+      color: var(--ink-soft);
+      line-height: 1.9;
+      flex: 1;
+    }
+    .page-body p { margin-bottom: 0.9em; }
+    .page-body p:last-child { margin-bottom: 0; }
+
+    /* Drop cap */
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.4em;
+      font-weight: 700;
+      float: left;
+      line-height: 0.75;
+      margin: 6px 8px 0 0;
+      color: var(--gold);
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    }
+
+    /* Quote styling */
+    .page-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      color: var(--ink-faint);
+      border-left: 2px solid var(--gold);
+      padding: 6px 0 6px 14px;
+      margin: 10px 0;
+      line-height: 1.7;
+    }
+
+    /* Signature */
+    .page-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+      color: var(--ink-faint);
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    /* Date stamp */
+    .page-date {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.62rem, 1.5vw, 0.75rem);
+      color: var(--ink-faint);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0.65;
+    }
+
+    /* Cover page special */
+    .cover-art {
+      text-align: center;
+      padding: 10px 0;
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+    }
+    .cover-rose {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      animation: roseFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 4px 12px rgba(200,80,80,0.3));
+    }
+    @keyframes roseFloat {
+      0%,100%{transform:translateY(0) rotate(-5deg);}
+      50%{transform:translateY(-8px) rotate(5deg);}
+    }
+    .cover-title-main {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 4vw, 2.1rem);
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .cover-title-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .cover-ornament {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--gold);
+      letter-spacing: 8px;
+      opacity: 0.6;
+    }
+    .cover-author {
+      font-family: 'Crimson Text', serif;
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      color: var(--ink-faint);
+      letter-spacing: 1px;
+    }
+
+    /* ── PAGE NUMBER ── */
+    .page-number-stamp {
+      position: absolute;
+      bottom: 14px;
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.7rem, 1.6vw, 0.88rem);
+      color: var(--ink-faint);
+      opacity: 0.6;
+    }
+    .page-number-stamp.left  { left: 22px; }
+    .page-number-stamp.right { right: 22px; }
+
+    /* ── PAGE INDICATOR (below book) ── */
+    .page-indicator {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.05rem; color: var(--gold-light);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(12px);
+      padding: 7px 24px; border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .pi-dots { display: flex; gap: 6px; }
+    .pi-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .pi-dot.active {
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(201,168,76,0.7);
+      transform: scale(1.25);
+    }
+    .pi-sep { color: rgba(255,255,255,0.25); font-size: 0.75rem; font-family:'Lato',sans-serif; }
+
+    /* Swipe hint */
+    .swipe-hint {
+      font-size: 0.75rem; color: rgba(255,255,255,0.35);
+      animation: hintFade 5s ease-in-out 3s forwards; opacity: 0;
+    }
+    @keyframes hintFade {
+      0%{opacity:0;} 15%{opacity:1;} 80%{opacity:1;} 100%{opacity:0;}
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      width: 100%; max-width: 600px;
+      height: 4px; background: rgba(255,255,255,0.07);
+      border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 4px; width: 0%;
+      background: linear-gradient(90deg, var(--purple-soft), var(--pink-dream), var(--gold));
+      transition: width 0.7s ease;
+      box-shadow: 0 0 12px rgba(217,70,239,0.6);
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION DIVIDER
+    ══════════════════════════════════════════ */
+    .section-divider {
+      position: relative; z-index: 20;
+      text-align: center; padding: 28px 0;
+      color: rgba(255,255,255,0.15);
+      font-size: 1rem; letter-spacing: 16px;
+    }
+
+    /* ══════════════════════════════════════════
+       COMMENTS
+    ══════════════════════════════════════════ */
+    .comments-section {
+      position: relative; z-index: 20;
+      padding: 40px 20px 60px;
+    }
+    .comments-inner { max-width: 720px; margin: 0 auto; }
+
+    .comments-header { text-align: center; margin-bottom: 38px; }
+    .comments-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      background: linear-gradient(135deg, var(--gold-light), var(--pink-dream));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 8px;
+    }
+    .quill-icon { display:inline-block; animation: quillWag 2s ease-in-out infinite; }
+    @keyframes quillWag {
+      0%,100%{transform:rotate(-12deg);} 50%{transform:rotate(12deg);}
+    }
+    .comments-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.05rem; color: rgba(255,255,255,0.4);
+    }
+
+    .form-glass {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(18px);
+      border-radius: var(--r-lg); padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      margin-bottom: 40px;
+    }
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 16px;
+    }
+    .ig { display: flex; flex-direction: column; gap: 6px; }
+    .ig.full { position: relative; }
+    .ig label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .ig input, .ig select, .ig textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-md);
+      color: var(--white); font-family: 'Lato',sans-serif;
+      font-size: 0.92rem; padding: 11px 14px;
+      outline: none; resize: none;
+      transition: all 0.35s ease;
+    }
+    .ig input::placeholder, .ig textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .ig select option { background: var(--purple-mid); }
+    .ig input:focus, .ig select:focus, .ig textarea:focus {
+      border-color: var(--pink-dream);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 3px rgba(217,70,239,0.15);
+    }
+    .char-count {
+      position: absolute; bottom: 10px; right: 12px;
+      font-size: 0.68rem; color: rgba(255,255,255,0.25);
+    }
+    .submit-btn {
+      position: relative; width: 100%; margin-top: 16px;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--purple-soft), var(--pink-dream));
+      border: none; border-radius: var(--r-md);
+      color: var(--white); font-family: 'Playfair Display',serif;
+      font-size: 1rem; letter-spacing: 1px;
+      cursor: pointer; overflow: hidden;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 28px rgba(91,45,142,0.45);
+    }
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(217,70,239,0.5);
+    }
+    .submit-btn:active { transform: translateY(0); }
+    .btn-shine {
+      position: absolute; top:0; left:-100%;
+      width:100%; height:100%;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+      transition: left 0.5s ease;
+    }
+    .submit-btn:hover .btn-shine { left:100%; }
+
+    .comments-stats {
+      text-align: center; margin-bottom: 20px;
+      font-family: 'Dancing Script',cursive;
+      font-size: 1.05rem; color: rgba(255,255,255,0.4);
+    }
+    .comments-stats span { color: var(--gold-light); font-size: 1.3rem; }
+    .no-comments {
+      text-align: center; padding: 44px 20px;
+      font-family: 'Dancing Script',cursive;
+      font-size: 1.15rem; color: rgba(255,255,255,0.25);
+    }
+
+    .comment-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(14px);
+      border-radius: var(--r-lg);
+      padding: 20px 24px; margin-bottom: 14px;
+      position: relative; overflow: hidden;
+      animation: cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .comment-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 38px rgba(0,0,0,0.35);
+    }
+    .comment-card::before {
+      content:''; position:absolute;
+      top:0; left:0; width:4px; height:100%;
+      background: linear-gradient(180deg,var(--purple-soft),var(--pink-dream));
+      border-radius: 4px 0 0 4px;
+    }
+    @keyframes cardIn {
+      from{opacity:0;transform:translateY(20px) scale(0.97);}
+      to{opacity:1;transform:translateY(0) scale(1);}
+    }
+    .card-header {
+      display:flex; align-items:center;
+      gap:12px; margin-bottom:10px;
+    }
+    .card-avatar {
+      width:42px; height:42px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.95rem; font-weight:700; flex-shrink:0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .card-meta { flex:1; min-width:0; }
+    .card-name {
+      font-weight:700; font-size:0.92rem;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .card-time { font-size:0.7rem; color:rgba(255,255,255,0.35); margin-top:2px; }
+    .card-mood { font-size:1.4rem; flex-shrink:0; }
+    .card-text { font-size:0.92rem; line-height:1.75; color:rgba(255,255,255,0.75); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .site-footer {
+      position: relative; z-index: 20;
+      text-align: center; padding: 36px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: 'Dancing Script',cursive;
+      font-size: 1.05rem; color: rgba(255,255,255,0.3);
+    }
+    .site-footer p+p { font-size:0.78rem; margin-top:5px; color:rgba(255,255,255,0.15); }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width:580px) {
+      .site-header { padding: 30px 14px 30px; }
+      .book-scene  { gap: 6px; }
+      .nav-btn     { width:38px; height:38px; font-size:1.5rem; }
+      .flip-stage  { width: 82vw; }
+      .page-content{ padding: 24px 22px 24px 44px; }
+      .form-row    { grid-template-columns:1fr; }
+      .form-glass  { padding:18px; }
+      .feather     { display:none; }
+      .page-margin { left:38px; }
+    }
+    @media (max-width:380px) {
+      .flip-stage  { width:86vw; }
+      .nav-btn     { width:32px; height:32px; font-size:1.2rem; }
+      .page-content{ padding:18px 16px 18px 36px; }
+    }
+    @media (min-width:700px) {
+      .flip-stage  { width: min(72vw, 520px); }
+    }
+    @media (min-width:1024px) {
+      .flip-stage  { width: min(58vw, 560px); }
+      .book-scene  { gap: 28px; }
+      .nav-btn     { width:56px; height:56px; font-size:2.1rem; }
+    }
+    @media (min-width:1400px) {
+      .flip-stage  { width: 580px; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:var(--purple-deep);}
+    ::-webkit-scrollbar-thumb{background:var(--purple-soft);border-radius:3px;}
+    ::-webkit-scrollbar-thumb:hover{background:var(--pink-dream);}
+    ::selection{background:rgba(217,70,239,0.3);color:var(--white);}
+
+    @keyframes shake {
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-8px);}
+      40%{transform:translateX(8px);}
+      60%{transform:translateX(-5px);}
+      80%{transform:translateX(5px);}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ BACKGROUND LAYERS ═══ -->
+<div class="bg-canvas"></div>
+<div class="stars-layer"    id="starsLayer"></div>
+<div class="particles-layer" id="particlesLayer"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="orb orb4"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <div class="feather feather-l">🪶</div>
+  <div class="feather feather-r">🪶</div>
+  <div class="header-inner">
+    <p class="subtitle-top">✦ &nbsp; A Story Worth Reading &nbsp; ✦</p>
+    <h1 class="main-title">
+      <span class="tw">The</span>
+      <span class="tw">Anonymous</span>
+      <span class="tw">Person's</span>
+      <span class="tw hl">Diary</span>
+    </h1>
+    <p class="subtitle-bottom">Turn the pages &nbsp;·&nbsp; Feel the story.</p>
+  </div>
+  <div class="header-glow"></div>
+</header>
+
+<!-- ═══ BOOK READER ═══ -->
+<main class="reader-section">
+
+  <div class="book-scene">
+
+    <!-- PREV BUTTON -->
+    <button class="nav-btn" id="prevBtn" aria-label="Previous page" disabled>‹</button>
+
+    <div class="book-wrapper">
+
+      <!-- THE BOOK -->
+      <div class="book" id="book">
+        <div class="flip-stage" id="flipStage">
+
+          <!-- BACK PAGE (shown during flip) -->
+          <div class="page page-back" id="pageBack">
+            <div class="page-surface"></div>
+            <div class="page-lines"></div>
+            <div class="page-margin"></div>
+            <div class="page-content" id="backContent"></div>
+            <div class="page-edge-shadow"></div>
+            <div class="page-curl"></div>
+          </div>
+
+          <!-- FRONT PAGE (current) -->
+          <div class="page page-front" id="pageFront">
+            <div class="page-surface"></div>
+            <div class="page-lines"></div>
+            <div class="page-margin"></div>
+            <div class="page-content" id="frontContent"></div>
+            <div class="page-edge-shadow"></div>
+            <div class="page-curl"></div>
+          </div>
+
+        </div><!-- /flip-stage -->
+        <div class="book-spine"></div>
+        <div class="book-floor-shadow"></div>
+      </div><!-- /book -->
+
+      <!-- PAGE INDICATOR -->
+      <div class="page-indicator">
+        <div class="pi-dots" id="piDots"></div>
+        <span class="pi-sep">·</span>
+        <span id="piText" style="font-size:0.9rem;">Page 1</span>
+      </div>
+
+      <!-- SWIPE HINT -->
+      <div class="swipe-hint" id="swipeHint">
+        👆 Swipe left / right &nbsp;·&nbsp; or use arrow keys
+      </div>
+
+    </div><!-- /book-wrapper -->
+
+    <!-- NEXT BUTTON -->
+    <button class="nav-btn" id="nextBtn" aria-label="Next page">›</button>
+
+  </div><!-- /book-scene -->
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+</main>
+
+<!-- DIVIDER -->
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ═══ COMMENTS ═══ -->
+<section class="comments-section">
+  <div class="comments-inner">
+
+    <div class="comments-header">
+      <h2 class="comments-title">
+        <span class="quill-icon">🪶</span> Reader's Corner
+      </h2>
+      <p class="comments-sub">Share your thoughts on this story…</p>
+    </div>
+
+    <div class="form-glass">
+      <div class="form-row">
+        <div class="ig">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" placeholder="Anonymous Reader…" maxlength="40"/>
+        </div>
+        <div class="ig">
+          <label for="userMood">Your Mood</label>
+          <select id="userMood">
+            <option value="😊">😊 Happy</option>
+            <option value="😢">😢 Emotional</option>
+            <option value="😍">😍 Loved it</option>
+            <option value="🤔">🤔 Thoughtful</option>
+            <option value="😮">😮 Surprised</option>
+            <option value="❤️">❤️ Touched</option>
+            <option value="🌙">🌙 Dreamy</option>
+            <option value="🔥">🔥 Intense</option>
+          </select>
+        </div>
+      </div>
+      <div class="ig full">
+        <label for="userComment">Your Thoughts</label>
+        <textarea id="userComment" rows="4" maxlength="500"
+          placeholder="What did this story make you feel?…"></textarea>
+        <span class="char-count" id="charCount">0 / 500</span>
+      </div>
+      <button class="submit-btn" id="submitBtn">
+        <span class="btn-text">✦ Leave Your Mark</span>
+        <span class="btn-shine"></span>
+      </button>
+    </div>
+
+    <div class="comments-stats">
+      <span id="commentCount">0</span> voices have spoken
+    </div>
+    <div id="commentsList"></div>
+    <div class="no-comments" id="noComments">🌙 Be the first to leave your thoughts…</div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <p>✦ &nbsp; The Anonymous Person's Diary &nbsp; ✦</p>
+  <p>Every page holds a secret.</p>
+</footer>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+/* ════════════════════════════════════════════════════
+   BOOK PAGES DATA
+   Each object = one page of the book
+════════════════════════════════════════════════════ */
+const PAGES = [
+
+  /* ── PAGE 1 : COVER ── */
+  {
+    number: 1,
+    html: `
+      <div class="cover-art">
+        <div class="cover-ornament">— ✦ —</div>
+        <div class="cover-rose">🌹</div>
+        <div class="cover-title-main">The Anonymous<br/>Person's Diary</div>
+        <div class="cover-title-sub">A Journey Through Hidden Feelings</div>
+        <div class="cover-ornament">— ✦ —</div>
+        <div class="cover-author">Written in the quiet hours of the night</div>
+      </div>
+      <div class="page-number-stamp right">i</div>
+    `
+  },
+
+  /* ── PAGE 2 : PROLOGUE ── */
+  {
+    number: 2,
+    html: `
+      <div class="page-chapter">Prologue</div>
+      <div class="page-title">Before the First Word</div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">✦</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">There are things we carry that have no name. Feelings that live somewhere between the ribs and the spine — too heavy to ignore, too fragile to speak aloud. This diary was born in those spaces.</p>
+        <div class="page-quote">"Not all storms come to disrupt your life. Some come to clear your path."</div>
+        <p>I never intended for anyone to read these words. They were meant to be whispered to the blank pages of a notebook at 2 a.m., when the world was asleep and I was the only one awake with my thoughts.</p>
+        <p>But here you are. And perhaps that means something.</p>
+      </div>
+      <div class="page-signature">— The Anonymous One</div>
+      <div class="page-number-stamp right">ii</div>
+    `
+  },
+
+  /* ── PAGE 3 : ENTRY 1 ── */
+  {
+    number: 3,
+    html: `
+      <div class="page-date">March 14th &nbsp;·&nbsp; 11:47 PM</div>
+      <div class="page-chapter">Entry One</div>
+      <div class="page-title"><em>The Night I Stopped Pretending</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">🌙</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">Today someone asked me how I was doing. I said "fine." I always say fine. It is the easiest lie in the world — two syllables, a small smile, and people move on. They don't really want to know. And maybe I don't really want to tell them.</p>
+        <p>But tonight, alone in my room with only the lamp and the rain for company, I am going to be honest. At least here. At least with these pages.</p>
+        <p>I am not fine. I haven't been fine in a very long time. And somehow, admitting that — even just to myself — feels like taking off armour I forgot I was wearing.</p>
+      </div>
+      <div class="page-number-stamp right">1</div>
+    `
+  },
+
+  /* ── PAGE 4 : ENTRY 1 CONTINUED ── */
+  {
+    number: 4,
+    html: `
+      <div class="page-date">March 14th &nbsp;·&nbsp; continued</div>
+      <div class="page-chapter">Entry One — continued</div>
+      <div class="page-title"><em>The Weight of Silence</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">✦</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">The strange thing about silence is that it is never truly silent. It hums. It presses against your ears like water. It fills the room until you feel like you might drown in it.</p>
+        <p>I thought about calling someone tonight. I picked up my phone three times. Each time, I put it back down. What would I even say? <em>"I'm drowning in my own quiet"?</em> People don't know what to do with that.</p>
+        <div class="page-quote">"The loneliest moment in someone's life is when they are watching their whole world fall apart, and all they can do is stare blankly."<br/>— F. Scott Fitzgerald</div>
+        <p>So instead, I write. And the writing holds me.</p>
+      </div>
+      <div class="page-signature">— Still here, somehow.</div>
+      <div class="page-number-stamp right">2</div>
+    `
+  },
+
+  /* ── PAGE 5 : ENTRY 2 ── */
+  {
+    number: 5,
+    html: `
+      <div class="page-date">March 21st &nbsp;·&nbsp; 7:14 AM</div>
+      <div class="page-chapter">Entry Two</div>
+      <div class="page-title"><em>The Morning That Felt Different</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">☀️</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">I woke up before the alarm today. The light was doing something extraordinary — it came through the curtain in long golden strips, painting the floor like a cathedral. I lay there for a long time, just watching the dust float in the beams.</p>
+        <p>For the first time in weeks, I didn't immediately feel the weight. It was still there — it's always there — but this morning it sat a little further away, like a storm on the horizon instead of directly overhead.</p>
+        <p>I made tea. I stood by the window. A sparrow landed on the ledge and looked at me with one bright eye, then flew away. I don't know why that made me want to cry. Good tears, I think. The kind that mean you're still soft inside.</p>
+      </div>
+      <div class="page-number-stamp right">3</div>
+    `
+  },
+
+  /* ── PAGE 6 : ENTRY 2 CONTINUED ── */
+  {
+    number: 6,
+    html: `
+      <div class="page-date">March 21st &nbsp;·&nbsp; continued</div>
+      <div class="page-chapter">Entry Two — continued</div>
+      <div class="page-title"><em>Small Things, Big Mercy</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">🌿</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">I am learning — slowly, imperfectly — that healing does not arrive like a thunderclap. It comes in small mercies. A warm cup. A slant of light. A bird that pauses long enough to remind you the world is still alive.</p>
+        <p>Maybe that is enough for today. Maybe today I don't need to be fixed or whole or brave. Maybe today I just need to notice the light on the floor and be grateful I am here to see it.</p>
+        <div class="page-quote">"Even the darkest night will end and the sun will rise."<br/>— Victor Hugo</div>
+        <p>The sparrow came back. It brought a friend. I took that as a sign.</p>
+      </div>
+      <div class="page-signature">— Learning to notice.</div>
+      <div class="page-number-stamp right">4</div>
+    `
+  },
+
+  /* ── PAGE 7 : ENTRY 3 ── */
+  {
+    number: 7,
+    html: `
+      <div class="page-date">April 3rd &nbsp;·&nbsp; 1:22 AM</div>
+      <div class="page-chapter">Entry Three</div>
+      <div class="page-title"><em>The Person I Used to Be</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">🕯️</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">I found an old photograph tonight. I was maybe nineteen in it — laughing at something off-camera, completely unaware of what was coming. There is a lightness in that face that I barely recognise.</p>
+        <p>I don't mourn that version of me. I think I used to. I used to look at old photos and feel a grief so sharp it was almost physical — grief for the person who didn't know yet. Who hadn't been broken yet.</p>
+        <p>But tonight I looked at that photograph and I thought: <em>she was brave in ways she didn't even know.</em> She was walking toward everything, arms open. And so am I. Just differently now. Carefully. With scar tissue and wisdom and a much better understanding of what I can survive.</p>
+      </div>
+      <div class="page-number-stamp right">5</div>
+    `
+  },
+
+  /* ── PAGE 8 : CLOSING ── */
+  {
+    number: 8,
+    html: `
+      <div class="page-date">April 3rd &nbsp;·&nbsp; continued</div>
+      <div class="page-chapter">A Note to You, the Reader</div>
+      <div class="page-title"><em>You Were Never Alone</em></div>
+      <div class="page-divider">
+        <div class="page-divider-line"></div>
+        <div class="page-divider-icon">❤️</div>
+        <div class="page-divider-line"></div>
+      </div>
+      <div class="page-body">
+        <p class="drop-cap">If you have read this far, then you have sat with me in my 2 a.m. hours. You have heard the things I was too afraid to say out loud. And somehow, that makes us connected — you and I — across whatever distance separates us.</p>
+        <p>I want you to know something: whatever you are carrying right now, you are not carrying it alone. Someone, somewhere, has felt the exact weight of what you feel. Has lain awake with the same thoughts. Has said "fine" when they meant something else entirely.</p>
+        <div class="page-quote">"You are allowed to be both a masterpiece and a work in progress simultaneously."<br/>— Sophia Bush</div>
+        <p>Keep going. Keep writing your own pages. The story isn't over yet.</p>
+      </div>
+      <div class="page-signature">— With love, The Anonymous Person 🌹</div>
+      <div class="page-number-stamp right">6</div>
+    `
+  }
+
+]; /* end PAGES */
+
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
+let current   = 0;          // index into PAGES[]
+let isFlipping = false;
+
+const total = PAGES.length;
+
+/* ════════════════════════════════════════════════════
+   DOM REFS
+════════════════════════════════════════════════════ */
+const flipStage   = document.getElementById('flipStage');
+const frontContent= document.getElementById('frontContent');
+const backContent = document.getElementById('backContent');
+const prevBtn     = document.getElementById('prevBtn');
+const nextBtn     = document.getElementById('nextBtn');
+const progressFill= document.getElementById('progressFill');
+const piDots      = document.getElementById('piDots');
+const piText      = document.getElementById('piText');
+
+/* ════════════════════════════════════════════════════
+   RENDER PAGE CONTENT
+════════════════════════════════════════════════════ */
+function renderPage(idx, container) {
+  if (idx < 0 || idx >= total) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = PAGES[idx].html;
+}
+
+/* ════════════════════════════════════════════════════
+   BUILD DOT INDICATORS
+════════════════════════════════════════════════════ */
+function buildDots() {
+  piDots.innerHTML = '';
+  PAGES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'pi-dot' + (i === 0 ? ' active' : '');
+    d.title = `Page ${i + 1}`;
+    d.addEventListener('click', () => jumpTo(i));
+    piDots.appendChild(d);
+  });
+}
+
+function updateDots() {
+  document.querySelectorAll('.pi-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   UPDATE UI
+════════════════════════════════════════════════════ */
+function updateUI() {
+  prevBtn.disabled = current <= 0;
+  nextBtn.disabled = current >= total - 1;
+
+  const pct = total > 1 ? (current / (total - 1)) * 100 : 100;
+  progressFill.style.width = pct + '%';
+
+  piText.textContent = `Page ${current + 1} of ${total}`;
+  updateDots();
+}
+
+/* ════════════════════════════════════════════════════
+   FLIP — NEXT
+════════════════════════════════════════════════════ */
+function goNext() {
+  if (isFlipping || current >= total - 1) return;
+  isFlipping = true;
+
+  /* Pre-load next page on back canvas */
+  renderPage(current + 1, backContent);
+
+  flipStage.classList.add('going-next');
+
+  setTimeout(() => {
+    current++;
+    flipStage.classList.remove('going-next');
+    renderPage(current, frontContent);
+    isFlipping = false;
+    updateUI();
+  }, 800);
+}
+
+/* ════════════════════════════════════════════════════
+   FLIP — PREV
+════════════════════════════════════════════════════ */
+function goPrev() {
+  if (isFlipping || current <= 0) return;
+  isFlipping = true;
+
+  /* Pre-load previous page on back canvas */
+  renderPage(current - 1, backContent);
+
+  flipStage.classList.add('going-prev');
+
+  setTimeout(() => {
+    current--;
+    flipStage.classList.remove('going-prev');
+    renderPage(current, frontContent);
+    isFlipping = false;
+    updateUI();
+  }, 800);
+}
+
+/* ════════════════════════════════════════════════════
+   JUMP TO PAGE (dot click)
+════════════════════════════════════════════════════ */
+function jumpTo(idx) {
+  if (isFlipping || idx === current) return;
+  const dir = idx > current ? 'going-next' : 'going-prev';
+  isFlipping = true;
+
+  renderPage(idx, backContent);
+  flipStage.classList.add(dir);
+
+  setTimeout(() => {
+    current = idx;
+    flipStage.classList.remove(dir);
+    renderPage(current, frontContent);
+    isFlipping = false;
+    updateUI();
+  }, 800);
+}
+
+/* ════════════════════════════════════════════════════
+   BUTTON EVENTS
+════════════════════════════════════════════════════ */
+nextBtn.addEventListener('click', goNext);
+prevBtn.addEventListener('click', goPrev);
+
+/* ════════════════════════════════════════════════════
+   KEYBOARD
+════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); goNext(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key))         { e.preventDefault(); goPrev(); }
+});
+
+/* ════════════════════════════════════════════════════
+   TOUCH SWIPE
+════════════════════════════════════════════════════ */
+let tx=0, ty=0, tt=0;
+const bookEl = document.getElementById('book');
+
+bookEl.addEventListener('touchstart', e => {
+  tx = e.touches[0].clientX;
+  ty = e.touches[0].clientY;
+  tt = Date.now();
+}, { passive: true });
+
+bookEl.addEventListener('touchend', e => {
+  const dx  = e.changedTouches[0].clientX - tx;
+  const dy  = e.changedTouches[0].clientY - ty;
+  const dt  = Date.now() - tt;
+  if (dt < 500 && Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+    dx < 0 ? goNext() : goPrev();
+  }
+}, { passive: true });
+
+/* ════════════════════════════════════════════════════
+   BACKGROUND — STARS
+════════════════════════════════════════════════════ */
+function createStars() {
+  const layer = document.getElementById('starsLayer');
+  const count = window.innerWidth < 600 ? 55 : 120;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random() * 2.8 + 0.4;
+    s.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*5+2}s;
+      animation-delay:${Math.random()*6}s;
+    `;
+    layer.appendChild(s);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   BACKGROUND — SHOOTING STARS
+════════════════════════════════════════════════════ */
+function createShootingStars() {
+  const layer = document.getElementById('starsLayer');
+  for (let i = 0; i < 5; i++) {
+    const s = document.createElement('div');
+    s.className = 'shooting-star';
+    const w = Math.random() * 120 + 60;
+    s.style.cssText = `
+      width:${w}px;
+      top:${Math.random()*60}%;
+      left:${Math.random()*40}%;
+      animation-duration:${Math.random()*4+5}s;
+      animation-delay:${Math.random()*12}s;
+    `;
+    layer.appendChild(s);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   BACKGROUND — PARTICLES
+════════════════════════════════════════════════════ */
+function createParticles() {
+  const layer = document.getElementById('particlesLayer');
+  const count = window.innerWidth < 600 ? 18 : 38;
+  const colors = [
+    'rgba(255,255,255,0.55)',
+    'rgba(240,208,128,0.5)',
+    'rgba(217,70,239,0.45)',
+    'rgba(99,102,241,0.45)',
+    'rgba(13,148,136,0.4)',
+  ];
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = Math.random() * 4 + 1;
+    const col = colors[Math.floor(Math.random() * colors.length)];
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      left:${Math.random()*100}%;
+      background:${col};
+      animation-duration:${Math.random()*16+10}s;
+      animation-delay:${Math.random()*14}s;
+    `;
+    layer.appendChild(p);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   BACKGROUND — SPARKLES (around book area)
+════════════════════════════════════════════════════ */
+function createSparkles() {
+  const layer = document.getElementById('particlesLayer');
+  for (let i = 0; i < 14; i++) {
+    const sp = document.createElement('div');
+    sp.className = 'sparkle';
+    sp.style.cssText = `
+      top:${20 + Math.random()*60}%;
+      left:${5 + Math.random()*90}%;
+      animation-duration:${Math.random()*3+2}s;
+      animation-delay:${Math.random()*5}s;
+      width:${Math.random()*5+2}px;
+      height:${Math.random()*5+2}px;
+      background: ${Math.random()>0.5 ? 'rgba(240,208,128,0.8)' : 'rgba(217,70,239,0.7)'};
+    `;
+    layer.appendChild(sp);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   COMMENTS
+════════════════════════════════════════════════════ */
+const CKEY = 'diary_comments_v3';
+const loadC = () => { try { return JSON.parse(localStorage.getItem(CKEY))||[]; } catch{return[];} };
+const saveC = a => localStorage.setItem(CKEY, JSON.stringify(a));
+
+function timeAgo(ts) {
+  const d = Date.now() - ts;
+  if (d < 60000)     return 'Just now';
+  if (d < 3600000)   return `${Math.floor(d/60000)}m ago`;
+  if (d < 86400000)  return `${Math.floor(d/3600000)}h ago`;
+  if (d < 604800000) return `${Math.floor(d/86400000)}d ago`;
+  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+const initials = n => (n||'A').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'A';
+const GRADS = [
+  'linear-gradient(135deg,#7c3aed,#ec4899)',
+  'linear-gradient(135deg,#0891b2,#7c3aed)',
+  'linear-gradient(135deg,#059669,#0891b2)',
+  'linear-gradient(135deg,#d97706,#ec4899)',
+  'linear-gradient(135deg,#dc2626,#7c3aed)',
+  'linear-gradient(135deg,#0d9488,#9333ea)',
+];
+const grad = n => { let h=0; for(const c of (n||'A')) h=(h+c.charCodeAt(0))%GRADS.length; return GRADS[h]; };
+const esc  = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+
+function renderComments() {
+  const arr  = loadC();
+  const list = document.getElementById('commentsList');
+  const none = document.getElementById('noComments');
+  document.getElementById('commentCount').textContent = arr.length;
+  if (!arr.length) { list.innerHTML=''; none.style.display='block'; return; }
+  none.style.display = 'none';
+  list.innerHTML = '';
+  [...arr].reverse().forEach((c,i) => {
+    const card = document.createElement('div');
+    card.className = 'comment-card';
+    card.style.animationDelay = `${i*0.07}s`;
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-avatar" style="background:${grad(c.name)}">${initials(c.name)}</div>
+        <div class="card-meta">
+          <div class="card-name">${esc(c.name||'Anonymous Reader')}</div>
+          <div class="card-time">${timeAgo(c.timestamp)}</div>
+        </div>
+        <div class="card-mood">${c.mood||'😊'}</div>
+      </div>
+      <p class="card-text">${esc(c.text)}</p>
+    `;
+    list.appendChild(card);
+  });
+}
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const nEl = document.getElementById('userName');
+  const mEl = document.getElementById('userMood');
+  const cEl = document.getElementById('userComment');
+  const txt = cEl.value.trim();
+  if (!txt) {
+    cEl.style.animation='none'; cEl.style.borderColor='#ef4444';
+    cEl.style.boxShadow='0 0 0 3px rgba(239,68,68,0.2)';
+    cEl.offsetHeight; cEl.style.animation='shake 0.4s ease';
+    setTimeout(()=>{ cEl.style.borderColor=''; cEl.style.boxShadow=''; cEl.style.animation=''; },1000);
+    return;
+  }
+  const arr = loadC();
+  arr.push({ name: nEl.value.trim()||'Anonymous Reader', mood: mEl.value, text: txt, timestamp: Date.now() });
+  saveC(arr);
+  nEl.value=''; cEl.value='';
+  document.getElementById('charCount').textContent='0 / 500';
+  const btn=document.getElementById('submitBtn'), sp=btn.querySelector('.btn-text');
+  sp.textContent='✦ Comment Posted!'; btn.style.background='linear-gradient(135deg,#059669,#0891b2)';
+  setTimeout(()=>{ sp.textContent='✦ Leave Your Mark'; btn.style.background=''; },2200);
+  renderComments();
+  setTimeout(()=>document.getElementById('commentsList').scrollIntoView({behavior:'smooth',block:'nearest'}),300);
+});
+
+document.getElementById('userComment').addEventListener('input', function(){
+  document.getElementById('charCount').textContent=`${this.value.length} / 500`;
+});
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+createStars();
+createShootingStars();
+createParticles();
+createSparkles();
+buildDots();
+renderPage(0, frontContent);
+updateUI();
+renderComments();
+</script>
+
+</body>
+</html>
