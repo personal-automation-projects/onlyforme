@@ -865,127 +865,500 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznD9eZqgi7Hl3n
    PAGES
 ══════════════════════════════════════════════════════ */
 const PAGES = [
+  /* ── PAGE 0 — COVER ── */
   {
     html:`
       <div class="cover-art">
         <div class="cover-ornament">— ✦ —</div>
         <div class="cover-rose">🌹</div>
-        <div class="cover-title-main">The Anonymous<br/>Person's Diary</div>
-        <div class="cover-title-sub">A Journey Through Hidden Feelings</div>
+        <div class="cover-title-main">The Words He<br/>Never Said</div>
+        <div class="cover-title-sub">A Story of Four Friends, A Thousand Miles,<br/>and the Feelings That Never Found Their Voice</div>
         <div class="cover-ornament">— ✦ —</div>
-        <div class="cover-author">Written in the quiet hours of the night</div>
+        <div class="cover-author">A story written in silence, carried in the heart</div>
       </div>
       <div class="page-number-stamp">i</div>
     `
   },
+
+  /* ── PAGE 1 — INTRODUCTION ── */
   {
     html:`
-      <div class="page-chapter">Prologue</div>
-      <div class="page-title">Before the First Word</div>
+      <div class="page-chapter">Introduction</div>
+      <div class="page-title">The Four of Them</div>
       <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">✦</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">There are things we carry that have no name. Feelings that live somewhere between the ribs and the spine — too heavy to ignore, too fragile to speak aloud. This diary was born in those spaces.</p>
-        <div class="page-quote">"Not all storms come to disrupt your life. Some come to clear your path."</div>
-        <p>I never intended for anyone to read these words. They were meant to be whispered to blank pages at 2 a.m., when the world was asleep and I was the only one awake with my thoughts.</p>
-        <p>But here you are. And perhaps that means something. Perhaps you needed these words as much as I needed to write them. Perhaps we are not so different — both searching, both carrying things we haven't named yet.</p>
-        <p>So read on. Know that you are not alone.</p>
+        <p class="drop-cap">This is the story of four friends — three boys and one girl — whose bond was woven not just through shared laughter and weekend adventures, but through something far deeper and far more quietly complicated than any of them ever truly understood.</p>
+        <p><strong style="color:var(--ink)">Narpath</strong> — a sharp, warm-hearted soul working remotely for an MNC company, living his work-from-home life in the heart of Mysuru, spending most of his hours in front of glowing screens, yet always the first one to plan something wild and spontaneous.</p>
+        <p><strong style="color:var(--ink)">Kiran</strong> — steady, grounded, and dependable, working at a bank right there in Mysuru, the kind of friend who never needed to say much but whose presence always made everything feel complete.</p>
+        <p><strong style="color:var(--ink)">Suhas</strong> — ambitious and hardworking, a bank employee now posted in Bengaluru, someone who carried both his dreams and his responsibilities with quiet seriousness.</p>
       </div>
-      <div class="page-signature">— The Anonymous One</div>
       <div class="page-number-stamp">ii</div>
     `
   },
+
+  /* ── PAGE 2 — INTRODUCTION CONTINUED ── */
   {
     html:`
-      <div class="page-date">March 14th · 11:47 PM</div>
-      <div class="page-chapter">Entry One</div>
-      <div class="page-title"><em>The Night I Stopped Pretending</em></div>
-      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌙</div><div class="page-divider-line"></div></div>
+      <div class="page-chapter">Introduction — continued</div>
+      <div class="page-title">And Then — Kaveri</div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌊</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">Today someone asked me how I was doing. I said "fine." I always say fine. It is the easiest lie in the world — two syllables, a small smile, and people move on. They don't really want to know. And maybe I don't really want to tell them.</p>
-        <p>But tonight, alone in my room with only the lamp and the rain for company, I am going to be honest. At least here. At least with these pages that cannot judge me, cannot look at me with pity, cannot say the wrong thing.</p>
-        <p>I am not fine. I haven't been fine in a very long time. And somehow, admitting that — even just to myself — feels like taking off armour I forgot I was wearing.</p>
-        <p>The rain is loud tonight. I find it comforting. It sounds like the world is crying too.</p>
+        <p class="drop-cap">And then — Arpitha — the girl who worked at an IT company called Pigeon in Mysuru, originally from North Karnataka, a girl who carried the warmth of her roots wherever she went.</p>
+        <p>But to these three boys, she was never just Arpitha. Out of love, out of closeness, out of that particular tenderness that only the truest friendships carry — they called her <em>Kaveri.</em></p>
+        <div class="page-quote">Just like a river — gentle on the surface, and endlessly deep beneath.</div>
+        <p>She was their Kaveri. And that name, spoken with such quiet affection, held inside it everything that words alone could never quite say.</p>
+      </div>
+      <div class="page-signature">— The Four of Them</div>
+      <div class="page-number-stamp">iii</div>
+    `
+  },
+
+  /* ── PAGE 3 — CHAPTER ONE ── */
+  {
+    html:`
+      <div class="page-date">Before She Arrived</div>
+      <div class="page-chapter">Chapter One</div>
+      <div class="page-title"><em>The Boys and Their Beautiful Madness</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🏔️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Before Kaveri walked into their lives, these three boys already had a world of their own — loud, free, and wonderfully reckless in the best possible way.</p>
+        <p>They were inseparable, and alongside them ran a fourth member — Charan, who had studied with Narpath in Mysuru and was every bit as adventurous as the rest of them. Together, the four boys were unstoppable. No plan was too sudden, no distance was too far, no mountain was too high.</p>
+        <p>They were all master's degree students then, riding the beautiful high of finishing college with jolly distinction — that rare, golden kind of academic success that still leaves enough room for life to be lived loudly and freely.</p>
+        <div class="page-quote">One evening, without much warning and with barely any planning, they decided to board a train to Murudeshwara. Just like that.</div>
       </div>
       <div class="page-number-stamp">1</div>
     `
   },
+
+  /* ── PAGE 4 — CHAPTER ONE CONTINUED ── */
   {
     html:`
-      <div class="page-date">March 14th · continued</div>
-      <div class="page-chapter">Entry One — continued</div>
-      <div class="page-title"><em>The Weight of Silence</em></div>
-      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">✦</div><div class="page-divider-line"></div></div>
+      <div class="page-date">Chapter One — continued</div>
+      <div class="page-chapter">The Roads They Chased</div>
+      <div class="page-title"><em>A Gang and Their Endless Horizon</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🛤️</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">The strange thing about silence is that it is never truly silent. It hums. It presses against your ears like water. It fills the room until you feel like you might drown in it.</p>
-        <p>I thought about calling someone tonight. I picked up my phone three times. Each time, I put it back down. What would I even say? <em>"I'm drowning in my own quiet"?</em> People don't know what to do with that. They say "just think positive" — and they mean well, but those words land like stones.</p>
-        <div class="page-quote">"The loneliest moment in someone's life is when they are watching their whole world fall apart, and all they can do is stare blankly." — F. Scott Fitzgerald</div>
-        <p>So instead, I write. And the writing holds me in a way nothing else does. These pages ask nothing of me. They simply receive.</p>
+        <p class="drop-cap">They spent three days wandering through Gokarna, breathing in the salt air and the freedom of it all. Then, on a rented two-wheeler, they rode through Honnavar all the way to the ancient, breathtaking Yana Caves, where the rocks rose like dark cathedral spires against the Karnataka sky.</p>
+        <p>After that grand journey, they kept going — as though the road itself was calling them by name. They climbed Netravati Hills, wandered through Shola Hills, scaled Savandurga and Shivagange, explored Bannerghatta, stood in the cool mist of Iruppu Falls, reached the misty heights of Mullayanagiri and Baba Budangiri, discovered Palakunike Falls, stood at Manjarabad Fort, wandered through Kemmanagundi, and lost themselves in the wild silence of Bhadra Wildlife Sanctuary.</p>
+        <p>They were travelling like nothing in the world could stop them — because nothing could. Complete independence. Pure, unfiltered freedom. This was their prime time.</p>
       </div>
-      <div class="page-signature">— Still here, somehow.</div>
       <div class="page-number-stamp">2</div>
     `
   },
+
+  /* ── PAGE 5 — CHAPTER ONE: CHARAN LEAVES ── */
   {
     html:`
-      <div class="page-date">March 21st · 7:14 AM</div>
-      <div class="page-chapter">Entry Two</div>
-      <div class="page-title"><em>The Morning That Felt Different</em></div>
-      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">☀️</div><div class="page-divider-line"></div></div>
+      <div class="page-date">Chapter One — continued</div>
+      <div class="page-chapter">The Day the Gang Lost One</div>
+      <div class="page-title"><em>When Four Became Three</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🚂</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">I woke up before the alarm today. The light was doing something extraordinary — it came through the curtain in long golden strips, painting the floor like a cathedral. I lay there for a long time, just watching the dust float in the beams.</p>
-        <p>For the first time in weeks, I didn't immediately feel the weight. It was still there — it's always there — but this morning it sat a little further away, like a storm on the horizon instead of directly overhead.</p>
-        <p>I made tea. I stood by the window. A sparrow landed on the ledge and looked at me with one bright eye, then flew away. I don't know why that made me want to cry. Good tears, I think. The kind that mean you're still soft inside.</p>
-        <p>Maybe that is what survival looks like sometimes. Not triumph. Just a sparrow. Just the light.</p>
+        <p class="drop-cap">Then came the moment that quietly changed things. Charan received a job offer — all the way in Thane. And just like that, he packed his life and left Mysuru behind.</p>
+        <p>The remaining three boys stood in the space he left, and for a while, the frequency of their travels slowed. The plans became less spontaneous. The laughter was still there, but something in the rhythm had shifted. Without their fourth, the road felt slightly less alive.</p>
+        <p>They were still three. But they had been four, and they knew the difference.</p>
+        <div class="page-quote">Some absences are felt not in the loudness of their leaving, but in the quiet of everything that follows.</div>
       </div>
+      <div class="page-signature">— Three, where there had been four.</div>
       <div class="page-number-stamp">3</div>
     `
   },
+
+  /* ── PAGE 6 — CHAPTER TWO ── */
   {
     html:`
-      <div class="page-date">March 21st · continued</div>
-      <div class="page-chapter">Entry Two — continued</div>
-      <div class="page-title"><em>Small Things, Big Mercy</em></div>
-      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌿</div><div class="page-divider-line"></div></div>
+      <div class="page-date">A Beautiful Surprise From a Small Screen</div>
+      <div class="page-chapter">Chapter Two</div>
+      <div class="page-title"><em>The Girl on the Video Call</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">📱</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">I am learning — slowly, imperfectly — that healing does not arrive like a thunderclap. It comes in small mercies. A warm cup. A slant of light. A bird that pauses long enough to remind you the world is still alive and so are you.</p>
-        <p>I used to wait for the big moment. The turning point. The day I would wake up completely better. I don't think that day exists. I think instead there are just more and more mornings like this one — where the weight is a little further away, where the light does something beautiful.</p>
-        <div class="page-quote">"Even the darkest night will end and the sun will rise." — Victor Hugo</div>
-        <p>The sparrow came back. It brought a friend. I took that as a sign — that good things return, that we do not have to face the light alone.</p>
+        <p class="drop-cap">It was during one of Suhas's video calls that everything changed. Narpath noticed her first. There she was — a girl on the other side of Suhas's screen, keeping him company through the distance, her presence warm and easy even through a phone camera.</p>
+        <p>She was, without question, beautiful. The kind of beautiful that makes you look twice and then feel slightly embarrassed for looking. Narpath and Kiran exchanged glances and then, with the particular honesty that only close friends can get away with, declared that Suhas was, without a doubt, the luckiest man alive.</p>
+        <p>She had this quality about her — a killer cuteness — the kind that doesn't announce itself loudly but simply sits there, quietly devastating. They were curious. Naturally.</p>
       </div>
-      <div class="page-signature">— Learning to notice.</div>
       <div class="page-number-stamp">4</div>
     `
   },
+
+  /* ── PAGE 7 — CHAPTER TWO: THE CAFÉ ── */
   {
     html:`
-      <div class="page-date">April 3rd · 1:22 AM</div>
-      <div class="page-chapter">Entry Three</div>
-      <div class="page-title"><em>The Person I Used to Be</em></div>
-      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🕯️</div><div class="page-divider-line"></div></div>
+      <div class="page-date">Chapter Two — continued</div>
+      <div class="page-chapter">The Café Near SJCE</div>
+      <div class="page-title"><em>The Real-Life Surprise</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">☕</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">I found an old photograph tonight. I was maybe nineteen in it — laughing at something off-camera, completely unaware of what was coming. There is a lightness in that face that I barely recognise.</p>
-        <p>I don't mourn that version of me anymore. I used to look at old photos and feel a grief so sharp it was almost physical — grief for the person who didn't know yet. Who hadn't been broken yet.</p>
-        <p>But tonight I looked at that photograph and thought: <em>she was brave in ways she didn't even know.</em> She was walking toward everything, arms open. And so am I. Just differently now. Carefully. With scar tissue and wisdom and a much better understanding of what I can survive.</p>
-        <p>The broken places, someone once said, are where the light gets in. I am beginning to believe that.</p>
+        <p class="drop-cap">Narpath — being exactly the kind of person he was — decided that this needed to change. He pushed Suhas to call her, to ask her to come for snacks at the café near SJCE. Suhas hesitated, believing Arpitha was introverted. But Narpath was not the kind of person who accepted resistance gracefully. He pushed, he coaxed, he teased — and finally, Suhas called her.</p>
+        <p>She said yes. Instantly. She walked to the café. Just like that.</p>
+        <p>Narpath stared. Then stared again — running through a very specific set of confused questions. The girl standing in front of him was thin, lean, a little dark-complexioned. Nothing like the impression the video call had painted. He was completely and thoroughly reverse-surprised.</p>
+        <p>But then she spoke. And within minutes she was laughing with them, completely at ease, completely herself. She dissolved into their group like she had always been there.</p>
       </div>
       <div class="page-number-stamp">5</div>
     `
   },
+
+  /* ── PAGE 8 — CHAPTER THREE ── */
   {
     html:`
-      <div class="page-date">April 3rd · continued</div>
-      <div class="page-chapter">A Note to You, the Reader</div>
-      <div class="page-title"><em>You Were Never Alone</em></div>
+      <div class="page-date">Four Friends and a World That Felt Like Theirs</div>
+      <div class="page-chapter">Chapter Three</div>
+      <div class="page-title"><em>The Golden Era</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">✨</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">What followed was nothing short of extraordinary — at least by the quiet, beautiful standards of real life. All four of them became close with a speed that surprised even themselves. Every weekend became an event. Every Saturday and Sunday was a small adventure waiting to happen.</p>
+        <p>They visited the shimmering backwaters of KRS, stood at Venugopalaswamy Temple, walked along Chikkadevaiah Sagara Dam, discovered the dreamy stillness of Blue Lagoon, splashed around at Balmuri and Yedamuri, explored Madeshwara Shooting Spot and the gentle hills of Karighatta — all on a wonderfully regular basis.</p>
+        <p>On quieter Sundays, they would walk the peaceful paths of Lingambudhi Lake or Kukkarahalli Lake — and then travel twenty-five to thirty kilometres just to have breakfast near Pandavapura, where the idlis were so impossibly soft they felt like eating clouds.</p>
+      </div>
+      <div class="page-number-stamp">6</div>
+    `
+  },
+
+  /* ── PAGE 9 — CHAPTER THREE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Three — continued</div>
+      <div class="page-chapter">Trekkers, Campers, and Wanderers</div>
+      <div class="page-title"><em>Everywhere, Together</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⛺</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Their love for the outdoors only deepened as a group of four. They climbed Kodachadri Hills, conquered Kotebetta, reached the dramatic ridgeline of Eetina Bhuja, trekked through Kunti Betta and Kundadri Hills. They carried their Decathlon tent on their backs, cooked their own meals under open skies, and slept to the sound of wind moving through trees.</p>
+        <p>Beyond trekking — Shivanasamudra Falls, Raja Seat in Madikeri, the Golden Temple in Bylakuppe, the rolling green of Coorg, Bandipur and Nagarhole, K-Gudi and BR Hills, Chandragiri Fort, Kannur Beach and Thalassery Beach.</p>
+        <p>And then there were the sudden plans — the ones that began with someone saying <em>"What if we just go?"</em> and ended with all four of them in Pondicherry, or winding through Munnar, or breathing in the lush green of Wayanad, or floating through the backwaters of Alappuzha.</p>
+        <p>They went everywhere. They stopped for nothing.</p>
+      </div>
+      <div class="page-number-stamp">7</div>
+    `
+  },
+
+  /* ── PAGE 10 — CHAPTER THREE: KAVERI ── */
+  {
+    html:`
+      <div class="page-date">Chapter Three — continued</div>
+      <div class="page-chapter">The Girl Who Was One of the Boys</div>
+      <div class="page-title"><em>Their Kaveri</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💎</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">In this group, there were no boundaries between boys and girls. There was no awkwardness, no pretence, no invisible line that separated her from them. Arpitha — their Kaveri — was simply one of them. A bro. Their bro.</p>
+        <p>They teased her endlessly. They would literally lift her like an object — because she was that small, that light, that wonderfully easy to tease — and she would protest loudly and laugh even louder. They shared everything with her — their jokes, their nonsense, their naughty humour, their secrets, their worries.</p>
+        <p>She never talked badly about anyone. She respected their privacy. She never judged. She had no ego, no attitude, no interest in what they earned or owned. She simply saw their care for her, and she returned it with her whole, uncomplicated heart.</p>
+        <div class="page-quote">She was the first girl any of them had ever known with a heart that pure. She was the pure gem of their group.</div>
+      </div>
+      <div class="page-number-stamp">8</div>
+    `
+  },
+
+  /* ── PAGE 11 — CHAPTER FOUR ── */
+  {
+    html:`
+      <div class="page-date">When the Light Went Away</div>
+      <div class="page-chapter">Chapter Four</div>
+      <div class="page-title"><em>The Return to Native</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌑</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">As long as they were all in Mysuru, as long as the college days stretched on and the weekends kept coming, life felt like it would always be exactly this good. College days were jolly days. That was simply the truth of it.</p>
+        <p>But then Arpitha's college ended. And with it, the world shifted.</p>
+        <p>The job market was unkind that year. No hiring. A recession. Offer letters that never came. So she did what made sense — she went back home, back to her native place in North Karnataka, back to her family. And the three boys were left behind in Mysuru.</p>
+        <p>They still travelled. They still walked around the lakes. But something was missing — something bright and warm and irreplaceable. Every outing felt like a day without sunlight. Like a sky without a moon.</p>
+        <div class="page-quote">They had been attached to her with that much intensity, and they hadn't fully realised it until she was gone.</div>
+      </div>
+      <div class="page-number-stamp">9</div>
+    `
+  },
+
+  /* ── PAGE 12 — CHAPTER FIVE ── */
+  {
+    html:`
+      <div class="page-date">A Signature, a Chance, and a Stubborn Friend</div>
+      <div class="page-chapter">Chapter Five</div>
+      <div class="page-title"><em>The Return</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🚪</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">After nearly a month and a half to two months, the boredom set in. She missed the weekends. She missed the laughter. She missed the three of them. Then, almost by accident, she had to return to Mysuru — just for a day, just to collect her certificates and put a signature on some college documents.</p>
+        <p>But Narpath called. And Narpath, being Narpath, did not simply suggest. He insisted. He reminded her, with great affection and very little patience for excuses, that she had been lazy for far too long. He told her he had a plan.</p>
+        <p>He directed her to Pigeon — the very same IT company where he himself had spent four months as a Machine Learning and Computer Vision intern. The company had loved him enough to offer him a full-time position. But by then, he had already received an offer from a larger MNC, and so he had moved on — taking his skills and his connections with him. Those connections, it turned out, were worth everything.</p>
+      </div>
+      <div class="page-number-stamp">10</div>
+    `
+  },
+
+  /* ── PAGE 13 — CHAPTER FIVE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Five — continued</div>
+      <div class="page-chapter">The Interview That Changed Everything</div>
+      <div class="page-title"><em>Back Where She Belonged</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌅</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">It was a Saturday when she walked into Pigeon. She hadn't expected much. But luck, it seemed, had been waiting for her there. A quick, informal conversation followed — and they were impressed enough to call her back for a proper interview within a couple of days.</p>
+        <p>She got the internship offer letter. And just like that — she was back in Mysuru. The four of them were whole again.</p>
+        <p>The joy that returned was not quiet or gradual. It was immediate and overwhelming and completely, beautifully them. She even brought her sister along sometimes, and the moment the bus pulled into the stand, Narpath and the others were already there — not to help settle in, not to find a PG first — but to go. Straight from the bus stand to the road.</p>
+        <p>After two and a half to three months, the internship became a full-time offer. She accepted. She was officially, permanently, beautifully back. And Narpath — her very close friend, the one who had pushed her through that door — was perhaps the happiest of all.</p>
+      </div>
+      <div class="page-number-stamp">11</div>
+    `
+  },
+
+  /* ── PAGE 14 — CHAPTER SIX ── */
+  {
+    html:`
+      <div class="page-date">When Suhas Left for Bengaluru</div>
+      <div class="page-chapter">Chapter Six</div>
+      <div class="page-title"><em>The Shift</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌆</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Just as everything had found its rhythm again, life turned once more. Suhas received a bank PO offer. It was a good offer — the kind you don't refuse. He accepted it, packed his things, and moved to Bengaluru. And with that, the group of four was no longer in the same city.</p>
+        <p>The travels became less frequent. The sudden plans became harder to execute. The freedom and independence they had all taken for granted began to quietly dissolve. Everything had changed. Drastically. Quietly. Permanently.</p>
+        <p>In Bengaluru, Suhas found himself in the particular loneliness of a busy city where you know very few people well. Every evening, on the long commute from office to home, he would call Arpitha. She was his anchor in those hours — the voice that made the distance feel smaller. Day by day, that thread between them grew stronger.</p>
+        <div class="page-quote">When the four of them travelled together now, there was something subtly different about Suhas. A softness. A protectiveness. They noticed.</div>
+      </div>
+      <div class="page-number-stamp">12</div>
+    `
+  },
+
+  /* ── PAGE 15 — CHAPTER SEVEN ── */
+  {
+    html:`
+      <div class="page-date">Two Friends, One Conversation, and a Step Backwards</div>
+      <div class="page-chapter">Chapter Seven</div>
+      <div class="page-title"><em>The Decision That Cost Something</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⚖️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">When the other two guys in the group started to notice that shift in Suhas, they both sat down and talked about it honestly — the way close friends do when they care more about each other than about being right.</p>
+        <p>They saw what was happening. They understood it. And so, without being asked, without being told, they made a quiet and generous decision together — they would step back from that girl. The casual closeness they had always shared with Arpitha — the holding of hands, the playful hair-pulling, the arms around shoulders, the easy warmth of deep friendship — all of it, they decided, would stop. Out of respect for Suhas. Out of love for their friend.</p>
+        <p>Kiran adjusted without too much difficulty. His attachment to Arpitha, while genuine and warm, had not grown roots as deep. The change, for him, was manageable.</p>
+        <p>But for Narpath, it was something else entirely.</p>
+      </div>
+      <div class="page-number-stamp">13</div>
+    `
+  },
+
+  /* ── PAGE 16 — CHAPTER SEVEN CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Seven — continued</div>
+      <div class="page-chapter">The Weight of a WFH Life</div>
+      <div class="page-title"><em>The Oxygen He Wasn't Allowed to Breathe</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💻</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Narpath was a work-from-home employee. He spent eighty-five percent of his days sitting in front of a laptop and virtual screens — meetings through headphones, conversations through cables, connection through WiFi signals. His world, Monday through Friday, was almost entirely digital. And his mind, without him fully realising it, had been quietly starving for real human contact.</p>
+        <p>Weekends were where he breathed. And on weekends, she was there. She never judged him. She had no ego, no attitude. She was simply herself, always — and all of that had made him feel more care, more playfulness, more closeness, more ease than he had felt anywhere else in his week.</p>
+        <p>The casual things — holding her hand, playing with her hair, a side hug, a hand on her shoulder — these were not physical attachment for him. They were emotional relief. They made his overworked, screen-tired mind go quiet. They made him feel calm.</p>
+        <div class="page-quote">But for her — those were just casual touches. Just the warmth of a close friendship. Nothing more. Nothing less.</div>
+      </div>
+      <div class="page-number-stamp">14</div>
+    `
+  },
+
+  /* ── PAGE 17 — CHAPTER SEVEN: THE BREAK ── */
+  {
+    html:`
+      <div class="page-date">Chapter Seven — continued</div>
+      <div class="page-chapter">The Moment He Tried to Let Go</div>
+      <div class="page-title"><em>And Couldn't</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💔</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Narpath took the decision very seriously — because he loved Suhas deeply, and the last thing he wanted was to hurt his friend's feelings. So he didn't just step back gradually. He decided, in one sharp and sudden moment, to avoid her completely. To stop everything. Even something as simple as a handshake. Even holding hands.</p>
+        <p>And the moment he made that decision — the moment he tried to cut it all off at once — something inside him broke open.</p>
+        <p>Because every time he saw her after that, the feelings didn't get quieter. They got louder. They kicked harder than before. With every attempt to pull away, the pull towards her grew stronger — and he was left standing there, feeling like there was oxygen right in front of him, but he was not allowed to breathe.</p>
+        <p>It was destroying him from the inside. Quietly. Completely.</p>
+      </div>
+      <div class="page-number-stamp">15</div>
+    `
+  },
+
+  /* ── PAGE 18 — CHAPTER EIGHT ── */
+  {
+    html:`
+      <div class="page-date">Her Happiness, His Conflict</div>
+      <div class="page-chapter">Chapter Eight</div>
+      <div class="page-title"><em>The First Salary and the Heavy Heart</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💛</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">The very next day, still carrying all of that inside him, Narpath stepped out to meet the group — pushing his mental strength, wearing a composed face, determined to do the right thing. And then he saw her. She was glowing.</p>
+        <p>Her first salary had arrived — or at least, part of it — and she was so excited she could barely contain it. She wanted to gift them something — a shirt, a piece of clothing, something small and meaningful from her very first earned money. That was who she was. That was Kaveri.</p>
+        <p>But Narpath already knew she hadn't yet received her complete first month's salary. If she spent what little she had on gifts for them, she would be left in a difficult position. He pulled Kiran aside. They talked quickly. And then, quietly, they turned it around — they gifted her instead. Both of them, together.</p>
+        <div class="page-quote">He could see the slight dimming of that bright excitement. The quiet disappointment of a girl who had wanted so badly to give — and hadn't been able to. And that knowing sat heavily in him that night.</div>
+      </div>
+      <div class="page-number-stamp">16</div>
+    `
+  },
+
+  /* ── PAGE 19 — CHAPTER NINE ── */
+  {
+    html:`
+      <div class="page-date">Two Thoughts Running at Once</div>
+      <div class="page-chapter">Chapter Nine</div>
+      <div class="page-title"><em>The Sleepless Night</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌙</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">It was late at night, and Narpath found himself sitting with two things running in his mind at the same time — and neither of them would let him rest.</p>
+        <p>On one side: her. The way she had glowed with excitement. The way she had wanted to give. The quiet disappointment she had hidden so gracefully. On the other side: the decision. How to avoid such a caring girl so suddenly.</p>
+        <p>He picked up his keyboard. He played. He switched to his guitar. He played some more. Neither helped. He watched four, five movies in a single day. He put on song after song. He opened books, read pages, closed them again.</p>
+        <div class="page-quote">Boys often feel emotional connection after physical closeness, while girls often feel physical closeness after emotional connection. He understood this. And yet, knowing it didn't make it easier to let go.</div>
+        <p>None of it worked. Every song, every story, every quiet moment only made her presence in his mind louder — more vivid, more aching, more impossible to silence.</p>
+      </div>
+      <div class="page-number-stamp">17</div>
+    `
+  },
+
+  /* ── PAGE 20 — CHAPTER NINE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Nine — continued</div>
+      <div class="page-chapter">The Nights That Wouldn't End</div>
+      <div class="page-title"><em>Missing Her, Quietly</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⭐</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">The nights became sleepless. And in those sleepless hours, he lay there — missing her, missing the ease of it all — spending the night in a kind of silence that was anything but quiet.</p>
+        <p>It didn't distract him. It made the feeling hit more intensely than before. Every song reminded him of something. Every story felt like it was about her. Every quiet moment became louder with her absence.</p>
+        <div class="page-quote">"A person never knows when attachment happened, when care started — more than they ever planned. They begin to stay on your mind all day — in the quiet moments and the loud ones too."</div>
+        <p>It feels like little things. But those little things are enough to either carry you — or quietly destroy your mental health.</p>
+      </div>
+      <div class="page-signature">— Narpath, in the quiet of 3 a.m.</div>
+      <div class="page-number-stamp">18</div>
+    `
+  },
+
+  /* ── PAGE 21 — CHAPTER TEN ── */
+  {
+    html:`
+      <div class="page-date">What He Knew, and What He Felt Anyway</div>
+      <div class="page-chapter">Chapter Ten</div>
+      <div class="page-title"><em>The Truth He Couldn't Say</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🕯️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Somehow, carefully, Narpath pieced together the picture of where things stood between Suhas and Arpitha. They were moving toward each other. Naturally. Mutually. With the quiet certainty of two people who had found something real. They were ready, in their own time, to become life partners.</p>
+        <p>And Narpath's closeness and attachment toward Arpitha — all of it — was entirely one-sided. She didn't want any kind of serious connection with him. She saw him as a close friend. A casual, comfortable, beloved friend. Nothing more. Nothing less.</p>
+        <p>He couldn't express his feelings directly to her — it might shatter the very friendship he was trying so desperately to protect. He couldn't tell Suhas — that would disturb everything between them. So he sat with it alone.</p>
+        <div class="page-quote">He controlled his tears badly. He was feeling so alone — completely alone with his own thoughts, analysing and turning them over by himself, in the silence of his own mind.</div>
+      </div>
+      <div class="page-number-stamp">19</div>
+    `
+  },
+
+  /* ── PAGE 22 — CHAPTER TEN CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Ten — continued</div>
+      <div class="page-chapter">The Heart That Doesn't Wait for Permission</div>
+      <div class="page-title"><em>Knowing, and Feeling Anyway</em></div>
       <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">❤️</div><div class="page-divider-line"></div></div>
       <div class="page-body">
-        <p class="drop-cap">If you have read this far, then you have sat with me in my 2 a.m. hours. You have heard the things I was too afraid to say out loud. And somehow, that makes us connected — you and I — across whatever distance separates us.</p>
-        <p>I want you to know something: whatever you are carrying right now, you are not carrying it alone. Someone, somewhere, has felt the exact weight of what you feel. Has lain awake with the same thoughts. Has said "fine" when they meant something else entirely.</p>
-        <div class="page-quote">"You are allowed to be both a masterpiece and a work in progress simultaneously." — Sophia Bush</div>
-        <p>Keep going. Keep writing your own pages. Be gentle with yourself on the hard days. Notice the light when it comes. Let the sparrows surprise you.</p>
-        <p>The story isn't over yet. Not yours. Not mine.</p>
+        <p class="drop-cap">He got a little depressed. He was scared to talk to Arpitha about any of it, afraid of losing the friendship and the close bond they shared. And he was afraid to say anything to his friends, afraid of disturbing what was quietly growing between Suhas and Arpitha. So he said nothing. He simply decided: avoid her. Step back. Let go.</p>
+        <div class="page-quote">He knew she can't like him the way he likes her. But he couldn't stop liking her.</div>
+        <p>That is perhaps the most quietly devastating thing a person can know about themselves — that the heart does not wait for permission, does not respond to logic, does not stop simply because stopping would be the sensible, correct, and kind thing to do.</p>
+        <p>A person never knows when attachment happened, when care started more than they ever planned. They begin to stay on your mind all day — in the quiet moments and the loud ones too. It feels like little things. But those little things are enough to either carry you or quietly destroy your mental health.</p>
       </div>
-      <div class="page-signature">— With love, The Anonymous Person 🌹</div>
-      <div class="page-number-stamp">6</div>
+      <div class="page-number-stamp">20</div>
+    `
+  },
+
+  /* ── PAGE 23 — CHAPTER ELEVEN ── */
+  {
+    html:`
+      <div class="page-date">Pushing Mental Strength to Its Limit</div>
+      <div class="page-chapter">Chapter Eleven</div>
+      <div class="page-title"><em>The Hardest Thing</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⚡</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">On the very next day, they gathered again — all four of them. She noticed. Of course she noticed. She could feel that he was avoiding her — that something had shifted in him, that he was holding himself at a distance he hadn't kept before.</p>
+        <p>But for Narpath, he was pushing his mental strength so hard. All three of the others were casually moving on — laughing, talking, being themselves. But for him, he was not able to look at her freely or talk with her the way he used to.</p>
+        <div class="page-quote">Day by day, the more he tried to avoid her, the stronger the force of her presence in his mind became — similar to Newton's Third Law: how much he was trying to avoid her thought, it was rebounding with much more stronger force.</div>
+        <p>Attachment is not a joke. It ends up losing them, which can destroy you mentally — you literally feel physical pain when you miss that person. Somehow, he managed. He held himself together through the hours. And then he went home.</p>
+      </div>
+      <div class="page-number-stamp">21</div>
+    `
+  },
+
+  /* ── PAGE 24 — CHAPTER ELEVEN: THE VOLCANO ── */
+  {
+    html:`
+      <div class="page-date">Chapter Eleven — continued</div>
+      <div class="page-chapter">The Volcano at Night</div>
+      <div class="page-title"><em>When the Walls Come Down</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌋</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">After going home, those thoughts started hitting like a volcano. He started playing all his favourite songs on keyboard. Then guitar. But none of them were helping him. He watched four, five movies in a day. He listened to songs continuously. He started reading books online.</p>
+        <p>All of those things were not actually avoiding her thought for him — they made it much more intensely strong. They made the hits harder, not softer. It made him sleepless.</p>
+        <p>And he spent those sleepless nights missing her — just missing her, quietly, completely, with no way to make it stop.</p>
+        <div class="page-quote">Some feelings don't go quiet when you try to drown them. They simply learn to swim.</div>
+      </div>
+      <div class="page-signature">— Still awake. Still missing.</div>
+      <div class="page-number-stamp">22</div>
+    `
+  },
+
+  /* ── PAGE 25 — CHAPTER TWELVE ── */
+  {
+    html:`
+      <div class="page-date">The Feeling That Has No Easy Name</div>
+      <div class="page-chapter">Chapter Twelve</div>
+      <div class="page-title"><em>What the Author Knows</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🪶</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">He knows she can't like him the way he likes her. But he can't stop liking her. A person never knows when attachment happened, when care started more than they ever planned to. They begin to stay on your mind all the day — in the quiet moments and the loud ones too.</p>
+        <p>It feels like little things. But those little things are enough to care — or to destroy mental health.</p>
+        <p>Whether fortunately or unfortunately — Narpath got that experience. And he is scared of expressing his thoughts, due to the fear of losing the friendship. He truly knows she is not thinking the way he thinks — which would feel so unnecessary to her.</p>
+        <div class="page-quote">But even knowing that, he chose her — knowing that she'll never choose him back. And he keeps moving, and keeps pretending it doesn't hurt.</div>
+      </div>
+      <div class="page-number-stamp">23</div>
+    `
+  },
+
+  /* ── PAGE 26 — CHAPTER THIRTEEN ── */
+  {
+    html:`
+      <div class="page-date">The Words of the Anonymous</div>
+      <div class="page-chapter">Chapter Thirteen</div>
+      <div class="page-title"><em>What the Silence Holds</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌊</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Even knowing she is not mine — he still feels scared of losing her.</p>
+        <p>She feels like the wind — she comes closer, and then goes far away.</p>
+        <p>For him, she felt like the silence — even when he doesn't see her, he can feel her around him.</p>
+        <p>He is afraid of losing her — even knowing she doesn't belong to him.</p>
+        <div class="page-quote">"Even knowing she is not mine — I still feel scared of losing her. She feels like the wind — she comes closer, and then goes far away. For me, she feels like the silence — even when I don't see her, I can feel her around me."</div>
+      </div>
+      <div class="page-signature">— Narpath</div>
+      <div class="page-number-stamp">24</div>
+    `
+  },
+
+  /* ── PAGE 27 — CHAPTER FOURTEEN ── */
+  {
+    html:`
+      <div class="page-date">The One Thing He Keeps Waiting For</div>
+      <div class="page-chapter">Chapter Fourteen</div>
+      <div class="page-title"><em>Waiting</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⏳</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">He keeps waiting for the day when he sees her — and she comes back and hugs him tightly.</p>
+        <p>In his final words about himself, he says he is stuck in a situation where he doesn't know what he has to do next. Should he start to avoid? Or should he stop avoiding?</p>
+        <p>He doesn't know.</p>
+        <p>So he keeps waiting for the day when he sees her — and she comes back and hugs him tightly. He believes that — only that — will calm his heart.</p>
+        <div class="page-quote">"Should I start to avoid? Or should I stop avoiding? I don't know. So I keep waiting for the day when she comes back and hugs me tightly. I believe that — only that — will calm my heart."</div>
+      </div>
+      <div class="page-signature">— Still waiting.</div>
+      <div class="page-number-stamp">25</div>
+    `
+  },
+
+  /* ── PAGE 28 — EPILOGUE ── */
+  {
+    html:`
+      <div class="page-chapter">Epilogue</div>
+      <div class="page-title">Maybe</div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌹</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <div class="page-quote">"I'm not the most important person in your life. But I hope that when you hear my name, you'll smile and say, 'Hey — that's my friend.'"</div>
+        <p style="text-align:center; font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--ink); margin: 16px 0;">"Maybe."</p>
+        <p><em>To be continued...</em></p>
+        <p>Some feelings are never spoken aloud. Some words are never said. But they exist — quietly, stubbornly, beautifully — in the space between what we feel and what we choose to carry alone.</p>
+        <p>This is the story of those words.</p>
+        <div class="page-quote">The words he never said.</div>
+      </div>
+      <div class="page-signature">— The Anonymous Person 🌹</div>
+      <div class="page-number-stamp">26</div>
     `
   }
 ];
