@@ -1,0 +1,1800 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>The Anonymous Person's Diary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --cream:       #fdf8f0;
+      --ink:         #2c1810;
+      --ink-soft:    #4a3728;
+      --ink-faint:   #7a6558;
+      --gold:        #c9a84c;
+      --gold-light:  #f0d080;
+      --purple-deep: #0f0220;
+      --purple-mid:  #1e0840;
+      --purple-soft: #5b2d8e;
+      --pink-dream:  #d946ef;
+      --blue-dream:  #6366f1;
+      --white:       #ffffff;
+      --glass-bg:    rgba(255,255,255,0.06);
+      --glass-bd:    rgba(255,255,255,0.13);
+      --r-lg: 18px;
+      --r-md: 10px;
+      --ease-flip: cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--purple-deep);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ══ BACKGROUND ══ */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, #2d0a5e 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, #0a1a4e 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #1a0533 0%, #050010 100%);
+      animation: bgShift 20s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0%   { filter: hue-rotate(0deg) brightness(1); }
+      50%  { filter: hue-rotate(15deg) brightness(1.08); }
+      100% { filter: hue-rotate(-10deg) brightness(0.95); }
+    }
+    .stars-layer {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none; overflow: hidden;
+    }
+    .star {
+      position: absolute; border-radius: 50%; background: white;
+      animation: starTwinkle ease-in-out infinite;
+    }
+    @keyframes starTwinkle {
+      0%,100% { opacity: 0.08; transform: scale(1); }
+      50%      { opacity: 0.9;  transform: scale(1.6); }
+    }
+    .shooting-star {
+      position: absolute; height: 1px;
+      background: linear-gradient(90deg, transparent, white, transparent);
+      animation: shoot linear infinite; opacity: 0;
+    }
+    @keyframes shoot {
+      0%   { transform: translateX(-200px) translateY(0) rotate(-30deg); opacity:0; }
+      5%   { opacity: 1; }
+      50%  { opacity: 0.8; }
+      70%  { opacity: 0; }
+      100% { transform: translateX(110vw) translateY(200px) rotate(-30deg); opacity:0; }
+    }
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(70px); pointer-events: none; z-index: 1;
+      animation: orbFloat ease-in-out infinite, orbFade ease-in-out infinite;
+    }
+    .orb1 { width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.6),transparent 70%);top:-150px;left:-150px;animation-duration:18s,9s; }
+    .orb2 { width:400px;height:400px;background:radial-gradient(circle,rgba(217,70,239,0.45),transparent 70%);top:30%;right:-150px;animation-duration:22s,11s;animation-delay:-6s,-3s; }
+    .orb3 { width:380px;height:380px;background:radial-gradient(circle,rgba(6,182,212,0.4),transparent 70%);bottom:-80px;left:20%;animation-duration:16s,8s;animation-delay:-12s,-4s; }
+    .orb4 { width:300px;height:300px;background:radial-gradient(circle,rgba(244,63,94,0.35),transparent 70%);top:60%;left:-80px;animation-duration:20s,10s;animation-delay:-4s,-2s; }
+    @keyframes orbFloat {
+      0%,100%{transform:translate(0,0) scale(1);}
+      25%{transform:translate(40px,-50px) scale(1.06);}
+      50%{transform:translate(-30px,30px) scale(0.94);}
+      75%{transform:translate(20px,40px) scale(1.03);}
+    }
+    @keyframes orbFade { 0%,100%{opacity:0.3;} 50%{opacity:0.55;} }
+    .particles-layer {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none; overflow: hidden;
+    }
+    .particle { position:absolute;border-radius:50%;animation:particleRise linear infinite; }
+    @keyframes particleRise {
+      0%   {transform:translateY(105vh) scale(0);opacity:0;}
+      8%   {opacity:1;}
+      92%  {opacity:0.6;}
+      100% {transform:translateY(-8vh) scale(1);opacity:0;}
+    }
+    .sparkle { position:absolute;border-radius:50%;animation:sparklePop ease-in-out infinite;pointer-events:none; }
+    @keyframes sparklePop {
+      0%,100%{transform:scale(0);opacity:0;}
+      30%{transform:scale(1.5);opacity:1;}
+      60%{transform:scale(0.8);opacity:0.7;}
+    }
+
+    /* ══ HEADER ══ */
+    .site-header {
+      position: relative; z-index: 20;
+      text-align: center;
+      padding: 40px 20px 32px;
+    }
+    .header-inner { position: relative; z-index: 2; }
+    .header-glow {
+      position: absolute; bottom:0; left:50%;
+      transform: translateX(-50%);
+      height:2px; width:500px;
+      background: linear-gradient(90deg,transparent,var(--gold),var(--pink-dream),var(--blue-dream),var(--gold),transparent);
+      animation: glowPulse 3.5s ease-in-out infinite;
+    }
+    @keyframes glowPulse { 0%,100%{opacity:0.4;width:300px;} 50%{opacity:1;width:650px;} }
+    .subtitle-top {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.78rem,2vw,1rem);
+      color:var(--gold-light); letter-spacing:4px;
+      margin-bottom:10px;
+      opacity:0; animation:fadeDown 1s ease 0.2s forwards;
+    }
+    .main-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.6rem,5vw,4.2rem);
+      line-height:1.1; margin-bottom:10px;
+      display:flex; flex-wrap:wrap;
+      justify-content:center; gap:0 10px;
+    }
+    .tw {
+      display:inline-block; opacity:0;
+      background:linear-gradient(135deg,#fff 0%,#ddc8ff 45%,#f0d080 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:wordPop 0.9s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    .tw:nth-child(1){animation-delay:0.3s}
+    .tw:nth-child(2){animation-delay:0.55s}
+    .tw:nth-child(3){animation-delay:0.8s}
+    .tw:nth-child(4){animation-delay:1.05s}
+    .tw.hl {
+      font-style:italic;
+      background:linear-gradient(135deg,var(--gold-light),var(--pink-dream),var(--blue-dream));
+      -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:wordPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 1.05s forwards,
+                titleShimmer 4s ease-in-out 2.5s infinite;
+    }
+    @keyframes wordPop {
+      0%  {opacity:0;transform:translateY(40px) scale(0.85);}
+      100%{opacity:1;transform:translateY(0) scale(1);}
+    }
+    @keyframes titleShimmer {
+      0%,100%{filter:drop-shadow(0 0 12px rgba(217,70,239,0.5));}
+      50%    {filter:drop-shadow(0 0 32px rgba(217,70,239,1));}
+    }
+    .subtitle-bottom {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.82rem,2vw,1.15rem);
+      color:rgba(255,255,255,0.55); letter-spacing:2px;
+      opacity:0; animation:fadeUp 1s ease 1.8s forwards;
+    }
+    .feather{position:absolute;top:50%;font-size:clamp(1rem,3vw,2.2rem);opacity:0.22;}
+    .feather-l{left:3%;animation:fL 4s ease-in-out infinite;}
+    .feather-r{right:3%;animation:fR 4s ease-in-out infinite;}
+    @keyframes fL{0%,100%{transform:translateY(-50%) rotate(-12deg);}50%{transform:translateY(calc(-50% - 8px)) rotate(10deg);}}
+    @keyframes fR{0%,100%{transform:translateY(-50%) scaleX(-1) rotate(-12deg);}50%{transform:translateY(calc(-50% - 8px)) scaleX(-1) rotate(10deg);}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:0.65;transform:translateY(0);}}
+
+    /* ══ READER ══ */
+    .reader-section {
+      position: relative; z-index: 20;
+      padding: 0 0 30px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 16px;
+      width: 100%;
+    }
+    .book-scene {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 0;
+    }
+    .nav-btn {
+      flex: 0 0 40px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(12px);
+      color: var(--white); font-size: 1.6rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; user-select: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      position: relative; z-index: 50;
+      flex-shrink: 0;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(201,168,76,0.3);
+      border-color: var(--gold);
+      transform: scale(1.1);
+      box-shadow: 0 0 18px rgba(201,168,76,0.5);
+    }
+    .nav-btn:disabled { opacity: 0.18; cursor: not-allowed; transform: none; }
+    .book-wrapper {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 14px;
+      padding: 0 6px;
+    }
+    .book {
+      position: relative;
+      perspective: 2000px;
+      width: 100%;
+      display: flex; justify-content: center;
+    }
+    .flip-stage {
+      position: relative;
+      width: 100%;
+      transform-style: preserve-3d;
+    }
+    .pages-stack {
+      display: grid;
+      grid-template-areas: "page";
+      width: 100%;
+    }
+    .page {
+      grid-area: page;
+      width: 100%;
+      border-radius: 3px 14px 14px 3px;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transform-origin: left center;
+      background: var(--cream);
+      pointer-events: none;
+    }
+    .page-front {
+      z-index: 2;
+      box-shadow:
+        -4px 0 14px rgba(0,0,0,0.2),
+        6px 6px 30px rgba(0,0,0,0.45),
+        0 20px 50px rgba(0,0,0,0.4);
+      pointer-events: auto;
+    }
+    .page-back { z-index: 1; box-shadow: -3px 0 10px rgba(0,0,0,0.15); }
+    .page-surface {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: linear-gradient(160deg,#fefaf2 0%,#fdf6e3 40%,#f9edd5 100%);
+    }
+    .page-lines {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background: repeating-linear-gradient(
+        transparent 0px, transparent 31px,
+        rgba(160,120,60,0.07) 32px
+      );
+    }
+    .page-margin {
+      position: absolute; top:0; bottom:0;
+      left: 48px; width: 1px;
+      background: rgba(220,80,80,0.13);
+      pointer-events: none; z-index: 1;
+    }
+    .page-edge-shadow {
+      position: absolute; top:0; right:0; bottom:0; width:16px;
+      background: linear-gradient(90deg,transparent,rgba(0,0,0,0.05));
+      pointer-events: none; z-index: 2;
+    }
+    .page-content {
+      position: relative; z-index: 3;
+      padding: 28px 28px 28px 58px;
+      display: flex; flex-direction: column;
+    }
+    .page-curl {
+      position: absolute; bottom:0; right:0;
+      width:0; height:0; border-style:solid;
+      border-width:0 0 26px 26px;
+      border-color:transparent transparent rgba(0,0,0,0.09) transparent;
+      transition:all 0.4s ease; z-index:10;
+    }
+    .page:hover .page-curl {
+      border-width:0 0 48px 48px;
+      border-color:transparent transparent rgba(0,0,0,0.14) transparent;
+    }
+    .flip-stage.going-next .page-front {
+      animation: flipToNext 0.75s var(--ease-flip) forwards;
+    }
+    .flip-stage.going-prev .page-back {
+      animation: flipToPrev 0.75s var(--ease-flip) forwards;
+    }
+    @keyframes flipToNext {
+      0%  { transform:rotateY(0deg);    box-shadow:-4px 0 14px rgba(0,0,0,0.2),6px 6px 30px rgba(0,0,0,0.45); }
+      45% { transform:rotateY(-90deg);  box-shadow:-28px 0 55px rgba(0,0,0,0.6); }
+      100%{ transform:rotateY(-180deg); box-shadow:none; }
+    }
+    @keyframes flipToPrev {
+      0%  { transform:rotateY(-180deg); box-shadow:none; }
+      55% { transform:rotateY(-90deg);  box-shadow:-28px 0 55px rgba(0,0,0,0.6); }
+      100%{ transform:rotateY(0deg);    box-shadow:-4px 0 14px rgba(0,0,0,0.2),6px 6px 30px rgba(0,0,0,0.45); }
+    }
+    .book-spine {
+      position: absolute; left:0; top:0; bottom:0; width:20px;
+      background: linear-gradient(180deg,#b08050 0%,#7a4f2a 20%,#9a6840 50%,#6a3f1e 75%,#b08050 100%);
+      border-radius: 4px 0 0 4px;
+      box-shadow: inset -4px 0 10px rgba(0,0,0,0.5), 2px 0 6px rgba(0,0,0,0.4);
+      z-index: 6; pointer-events: none;
+    }
+    .book-floor-shadow {
+      position: absolute; bottom:-26px; left:4%;
+      width:92%; height:36px;
+      background: radial-gradient(ellipse,rgba(0,0,0,0.6) 0%,transparent 70%);
+      filter: blur(12px); z-index:0; pointer-events:none;
+    }
+
+    /* ══ PAGE TYPOGRAPHY ══ */
+    .page-chapter {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.62rem,2.5vw,0.9rem);
+      color:var(--gold); letter-spacing:2.5px;
+      text-transform:uppercase; margin-bottom:7px; opacity:0.85;
+    }
+    .page-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(0.92rem,3.5vw,1.45rem);
+      color:var(--ink); line-height:1.25;
+      margin-bottom:10px; font-weight:700;
+    }
+    .page-title em { font-style:italic; color:var(--ink-soft); }
+    .page-divider { display:flex; align-items:center; gap:7px; margin-bottom:10px; }
+    .page-divider-line {
+      flex:1; height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      opacity:0.4;
+    }
+    .page-divider-icon { font-size:0.7rem; color:var(--gold); opacity:0.6; }
+    .page-body {
+      font-family:'Crimson Text',serif;
+      font-size:clamp(0.82rem,2.8vw,1.04rem);
+      color:var(--ink-soft); line-height:1.85;
+    }
+    .page-body p { margin-bottom:0.8em; }
+    .page-body p:last-child { margin-bottom:0; }
+    .drop-cap::first-letter {
+      font-family:'Playfair Display',serif;
+      font-size:3em; font-weight:700;
+      float:left; line-height:0.78;
+      margin:5px 6px 0 0; color:var(--gold);
+    }
+    .page-quote {
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:clamp(0.78rem,2.2vw,0.95rem);
+      color:var(--ink-faint);
+      border-left:2px solid var(--gold);
+      padding:5px 0 5px 12px;
+      margin:9px 0; line-height:1.65;
+    }
+    .page-signature {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.82rem,2.5vw,1.08rem);
+      color:var(--ink-faint); text-align:right; margin-top:10px;
+    }
+    .page-date {
+      font-family:'Lato',sans-serif;
+      font-size:clamp(0.58rem,1.8vw,0.7rem);
+      color:var(--ink-faint); letter-spacing:1.5px;
+      text-transform:uppercase; margin-bottom:9px; opacity:0.58;
+    }
+    .cover-art {
+      text-align:center; padding:14px 0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:12px;
+    }
+    .cover-rose {
+      font-size:clamp(2rem,8vw,3.8rem);
+      animation:roseFloat 3s ease-in-out infinite;
+    }
+    @keyframes roseFloat {
+      0%,100%{transform:translateY(0) rotate(-5deg);}
+      50%{transform:translateY(-7px) rotate(5deg);}
+    }
+    .cover-title-main {
+      font-family:'Playfair Display',serif; font-style:italic;
+      font-size:clamp(1.1rem,4.5vw,1.9rem);
+      color:var(--ink); line-height:1.2;
+    }
+    .cover-title-sub {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.75rem,2.5vw,1rem);
+      color:var(--gold); letter-spacing:2px;
+    }
+    .cover-ornament {
+      font-size:clamp(0.8rem,2vw,0.95rem);
+      color:var(--gold); letter-spacing:8px; opacity:0.6;
+    }
+    .cover-author {
+      font-family:'Crimson Text',serif;
+      font-size:clamp(0.72rem,1.8vw,0.88rem);
+      color:var(--ink-faint); letter-spacing:1px;
+    }
+    .page-number-stamp {
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(0.62rem,1.8vw,0.82rem);
+      color:var(--ink-faint); opacity:0.52;
+      text-align:right; margin-top:10px;
+    }
+
+    /* ══ PAGE INDICATOR ══ */
+    .page-indicator {
+      display:flex; align-items:center; gap:10px;
+      font-family:'Dancing Script',cursive;
+      font-size:0.95rem; color:var(--gold-light);
+      background:var(--glass-bg);
+      border:1px solid var(--glass-bd);
+      backdrop-filter:blur(12px);
+      padding:6px 20px; border-radius:30px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+    }
+    .pi-dots { display:flex; gap:6px; }
+    .pi-dot {
+      width:7px; height:7px; border-radius:50%;
+      background:rgba(255,255,255,0.2);
+      transition:all 0.4s ease; cursor:pointer;
+    }
+    .pi-dot.active {
+      background:var(--gold);
+      box-shadow:0 0 8px rgba(201,168,76,0.7);
+      transform:scale(1.3);
+    }
+    .pi-sep { color:rgba(255,255,255,0.25); font-size:0.7rem; font-family:'Lato',sans-serif; }
+    .swipe-hint {
+      font-size:0.72rem; color:rgba(255,255,255,0.33);
+      animation:hintFade 5s ease-in-out 3s forwards; opacity:0;
+    }
+    @keyframes hintFade { 0%{opacity:0;}15%{opacity:1;}80%{opacity:1;}100%{opacity:0;} }
+    .progress-wrap {
+      width:90%; max-width:560px;
+      height:4px; background:rgba(255,255,255,0.07);
+      border-radius:4px; overflow:hidden;
+    }
+    .progress-fill {
+      height:100%; border-radius:4px; width:0%;
+      background:linear-gradient(90deg,var(--purple-soft),var(--pink-dream),var(--gold));
+      transition:width 0.7s ease;
+      box-shadow:0 0 10px rgba(217,70,239,0.6);
+    }
+
+    /* ══ SECTION DIVIDER ══ */
+    .section-divider {
+      position:relative; z-index:20;
+      text-align:center; padding:24px 0;
+      color:rgba(255,255,255,0.15);
+      font-size:1rem; letter-spacing:16px;
+    }
+
+    /* ══ COMMENTS ══ */
+    .comments-section {
+      position:relative; z-index:20;
+      padding:32px 16px 52px;
+    }
+    .comments-inner { max-width:680px; margin:0 auto; }
+    .comments-header { text-align:center; margin-bottom:30px; }
+    .comments-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.4rem,4vw,2.3rem);
+      background:linear-gradient(135deg,var(--gold-light),var(--pink-dream));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; margin-bottom:7px;
+    }
+    .quill-icon { display:inline-block; animation:quillWag 2s ease-in-out infinite; }
+    @keyframes quillWag { 0%,100%{transform:rotate(-12deg);}50%{transform:rotate(12deg);} }
+    .comments-sub {
+      font-family:'Dancing Script',cursive;
+      font-size:0.98rem; color:rgba(255,255,255,0.4);
+    }
+    .info-banner {
+      background:rgba(217,70,239,0.1);
+      border:1px solid rgba(217,70,239,0.28);
+      border-radius:var(--r-md);
+      padding:11px 15px; margin-bottom:14px;
+      font-size:0.83rem; color:rgba(255,255,255,0.68);
+      text-align:center; line-height:1.5;
+    }
+
+    /* ══ FORM ══ */
+    .form-glass {
+      background:var(--glass-bg);
+      border:1px solid var(--glass-bd);
+      backdrop-filter:blur(18px);
+      border-radius:var(--r-lg); padding:24px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.38);
+      margin-bottom:32px;
+    }
+
+    /* Form row — 2 columns on tablet+, 1 column on mobile */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      margin-bottom: 13px;
+    }
+    @media (max-width: 580px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ig { display:flex; flex-direction:column; gap:5px; }
+    .ig.full { position:relative; }
+    .ig label {
+      font-size:0.67rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      color:var(--gold-light);
+    }
+    .ig input,
+    .ig textarea {
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:var(--r-md);
+      color:var(--white); font-family:'Lato',sans-serif;
+      font-size:0.88rem; padding:10px 12px;
+      outline:none; resize:none;
+      transition:all 0.3s ease;
+      width: 100%;
+    }
+
+    /* ══ SELECT — fully contained, custom arrow ══ */
+    .ig select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-md);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      padding: 10px 36px 10px 12px;
+      outline: none;
+      transition: all 0.3s ease;
+      /* Remove native arrow */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      /* Custom gold arrow */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f0d080' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px;
+      /* Prevent overflow */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      /* Keep glass background alongside arrow image */
+      background-color: rgba(255,255,255,0.05);
+    }
+    .ig select option {
+      background: var(--purple-mid);
+      color: var(--white);
+    }
+    .ig input::placeholder,.ig textarea::placeholder { color:rgba(255,255,255,0.24); }
+    .ig input:focus,
+    .ig select:focus,
+    .ig textarea:focus {
+      border-color:var(--pink-dream);
+      background-color:rgba(255,255,255,0.08);
+      box-shadow:0 0 0 3px rgba(217,70,239,0.14);
+    }
+    .char-count {
+      position:absolute; bottom:10px; right:11px;
+      font-size:0.65rem; color:rgba(255,255,255,0.24);
+      pointer-events: none;
+    }
+    .submit-btn {
+      position:relative; width:100%; margin-top:13px;
+      padding:13px;
+      background:linear-gradient(135deg,var(--purple-soft),var(--pink-dream));
+      border:none; border-radius:var(--r-md);
+      color:var(--white); font-family:'Playfair Display',serif;
+      font-size:0.96rem; letter-spacing:1px;
+      cursor:pointer; overflow:hidden;
+      transition:all 0.3s ease;
+      box-shadow:0 7px 25px rgba(91,45,142,0.42);
+    }
+    .submit-btn:hover { transform:translateY(-2px); box-shadow:0 12px 35px rgba(217,70,239,0.48); }
+    .submit-btn:active { transform:translateY(0); }
+    .submit-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .btn-shine {
+      position:absolute; top:0; left:-100%;
+      width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+      transition:left 0.5s ease;
+    }
+    .submit-btn:hover .btn-shine { left:100%; }
+
+    /* ══ COMMENTS LIST ══ */
+    .comments-loading {
+      text-align:center; padding:28px;
+      font-family:'Dancing Script',cursive;
+      font-size:1.05rem; color:rgba(255,255,255,0.38);
+      animation:pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+    .comments-stats {
+      text-align:center; margin-bottom:16px;
+      font-family:'Dancing Script',cursive;
+      font-size:0.98rem; color:rgba(255,255,255,0.38);
+    }
+    .comments-stats span { color:var(--gold-light); font-size:1.2rem; }
+    .no-comments {
+      text-align:center; padding:38px 20px;
+      font-family:'Dancing Script',cursive;
+      font-size:1.08rem; color:rgba(255,255,255,0.24);
+    }
+    .comment-card {
+      background:var(--glass-bg);
+      border:1px solid var(--glass-bd);
+      backdrop-filter:blur(14px);
+      border-radius:var(--r-lg);
+      padding:17px 20px; margin-bottom:11px;
+      position:relative; overflow:hidden;
+      animation:cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      transition:transform 0.3s ease,box-shadow 0.3s ease;
+    }
+    .comment-card:hover { transform:translateY(-3px); box-shadow:0 11px 35px rgba(0,0,0,0.32); }
+    .comment-card::before {
+      content:''; position:absolute;
+      top:0; left:0; width:4px; height:100%;
+      background:linear-gradient(180deg,var(--purple-soft),var(--pink-dream));
+      border-radius:4px 0 0 4px;
+    }
+    @keyframes cardIn {
+      from{opacity:0;transform:translateY(18px) scale(0.97);}
+      to{opacity:1;transform:translateY(0) scale(1);}
+    }
+    .card-header { display:flex;align-items:center;gap:10px;margin-bottom:8px; }
+    .card-avatar {
+      width:38px; height:38px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.88rem; font-weight:700; flex-shrink:0;
+      box-shadow:0 3px 10px rgba(0,0,0,0.28);
+    }
+    .card-meta { flex:1; min-width:0; }
+    .card-name { font-weight:700;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .card-time { font-size:0.67rem;color:rgba(255,255,255,0.33);margin-top:2px; }
+    .card-mood { font-size:1.3rem;flex-shrink:0; }
+    .card-text { font-size:0.88rem;line-height:1.7;color:rgba(255,255,255,0.73); }
+
+    /* ══ FOOTER ══ */
+    .site-footer {
+      position:relative; z-index:20;
+      text-align:center; padding:30px 20px;
+      border-top:1px solid rgba(255,255,255,0.06);
+      font-family:'Dancing Script',cursive;
+      font-size:0.98rem; color:rgba(255,255,255,0.28);
+    }
+    .site-footer p+p { font-size:0.74rem;margin-top:4px;color:rgba(255,255,255,0.14); }
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:380px) {
+      .nav-btn { flex:0 0 32px; width:32px; height:32px; font-size:1.2rem; }
+      .book-wrapper { padding:0 3px; }
+      .page-content { padding:18px 14px 18px 30px; }
+      .page-margin { left:24px; }
+    }
+    @media(min-width:381px) and (max-width:580px) {
+      .nav-btn { flex:0 0 36px; width:36px; height:36px; font-size:1.4rem; }
+      .book-wrapper { padding:0 4px; }
+      .page-content { padding:22px 18px 22px 40px; }
+      .page-margin { left:34px; }
+      .feather { display:none; }
+    }
+    @media(min-width:581px) and (max-width:900px) {
+      .nav-btn { flex:0 0 44px; width:44px; height:44px; }
+      .flip-stage { max-width:400px; }
+      .book-wrapper { padding:0 8px; }
+    }
+    @media(min-width:901px) {
+      .nav-btn { flex:0 0 52px; width:52px; height:52px; font-size:2rem; }
+      .flip-stage { max-width:520px; }
+      .book-wrapper { padding:0 16px; }
+      .book-scene { max-width:820px; margin:0 auto; }
+      .page-content { padding:34px 34px 34px 64px; }
+      .page-margin { left:54px; }
+    }
+    @media(min-width:1200px) {
+      .flip-stage { max-width:560px; }
+    }
+
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--purple-deep); }
+    ::-webkit-scrollbar-thumb { background:var(--purple-soft);border-radius:3px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--pink-dream); }
+    ::selection { background:rgba(217,70,239,0.3);color:var(--white); }
+    @keyframes shake {
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-7px);}
+      40%{transform:translateX(7px);}
+      60%{transform:translateX(-4px);}
+      80%{transform:translateX(4px);}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="stars-layer"     id="starsLayer"></div>
+<div class="particles-layer" id="particlesLayer"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="orb orb4"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <div class="feather feather-l">🪶</div>
+  <div class="feather feather-r">🪶</div>
+  <div class="header-inner">
+    <p class="subtitle-top">✦ &nbsp; A Story Worth Reading &nbsp; ✦</p>
+    <h1 class="main-title">
+      <span class="tw">The</span>
+      <span class="tw">Anonymous</span>
+      <span class="tw">Person's</span>
+      <span class="tw hl">Diary</span>
+    </h1>
+    <p class="subtitle-bottom">Turn the pages &nbsp;·&nbsp; Feel the story.</p>
+  </div>
+  <div class="header-glow"></div>
+</header>
+
+<!-- ═══ BOOK READER ═══ -->
+<main class="reader-section">
+  <div class="book-scene">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous page" disabled>‹</button>
+
+    <div class="book-wrapper">
+      <div class="book" id="book">
+        <div class="flip-stage" id="flipStage">
+          <div class="pages-stack">
+
+            <div class="page page-back" id="pageBack">
+              <div class="page-surface"></div>
+              <div class="page-lines"></div>
+              <div class="page-margin"></div>
+              <div class="page-content" id="backContent"></div>
+              <div class="page-edge-shadow"></div>
+              <div class="page-curl"></div>
+            </div>
+
+            <div class="page page-front" id="pageFront">
+              <div class="page-surface"></div>
+              <div class="page-lines"></div>
+              <div class="page-margin"></div>
+              <div class="page-content" id="frontContent"></div>
+              <div class="page-edge-shadow"></div>
+              <div class="page-curl"></div>
+            </div>
+
+          </div>
+          <div class="book-spine"></div>
+          <div class="book-floor-shadow"></div>
+        </div>
+      </div>
+
+      <div class="page-indicator">
+        <div class="pi-dots" id="piDots"></div>
+        <span class="pi-sep">·</span>
+        <span id="piText" style="font-size:0.85rem;">Page 1 of 8</span>
+      </div>
+      <div class="swipe-hint">👆 Swipe left / right &nbsp;·&nbsp; or use arrow keys</div>
+    </div>
+
+    <button class="nav-btn" id="nextBtn" aria-label="Next page">›</button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</main>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ═══ COMMENTS ═══ -->
+<section class="comments-section">
+  <div class="comments-inner">
+    <div class="comments-header">
+      <h2 class="comments-title">
+        <span class="quill-icon">🪶</span> Reader's Corner
+      </h2>
+      <p class="comments-sub">Share your thoughts on this story…</p>
+    </div>
+
+    <div class="info-banner" id="infoBanner" style="display:none;">
+      💾 Running in <strong>local mode</strong> — comments visible only on this device.
+      Paste your Google Apps Script URL in the code to enable public comments.
+    </div>
+
+    <div class="form-glass">
+      <div class="form-row">
+        <div class="ig">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" placeholder="Anonymous Reader…" maxlength="40"/>
+        </div>
+        <div class="ig">
+          <label for="userMood">Your Mood</label>
+          <select id="userMood">
+            <option value="😊">😊 Happy</option>
+            <option value="😢">😢 Emotional</option>
+            <option value="😍">😍 Loved it</option>
+            <option value="🤔">🤔 Thoughtful</option>
+            <option value="😮">😮 Surprised</option>
+            <option value="❤️">❤️ Touched</option>
+            <option value="🌙">🌙 Dreamy</option>
+            <option value="🔥">🔥 Intense</option>
+          </select>
+        </div>
+      </div>
+      <div class="ig full">
+        <label for="userComment">Your Thoughts</label>
+        <textarea id="userComment" rows="4" maxlength="500"
+          placeholder="What did this story make you feel?…"></textarea>
+        <span class="char-count" id="charCount">0 / 500</span>
+      </div>
+      <button class="submit-btn" id="submitBtn">
+        <span class="btn-text">✦ Leave Your Mark</span>
+        <span class="btn-shine"></span>
+      </button>
+    </div>
+
+    <div class="comments-stats">
+      <span id="commentCount">0</span> voices have spoken
+    </div>
+    <div id="commentsList"></div>
+    <div class="no-comments" id="noComments">🌙 Be the first to leave your thoughts…</div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <p>✦ &nbsp; The Anonymous Person's Diary &nbsp; ✦</p>
+  <p>Every page holds a secret.</p>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+══════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznD9eZqgi7Hl3nIaCvn5SSNFo_AYYiFWCxHg2T3RWNItgIlM5RRxw2iuI7sDVmY60sBQ/exec";  // ← "https://script.google.com/macros/s/XXX/exec"
+
+/* ══════════════════════════════════════════════════════
+   PAGES
+══════════════════════════════════════════════════════ */
+const PAGES = [
+  /* ── PAGE 0 — COVER ── */
+  {
+    html:`
+      <div class="cover-art">
+        <div class="cover-ornament">— ✦ —</div>
+        <div class="cover-rose">🌹</div>
+        <div class="cover-title-main">The Words He<br/>Never Said</div>
+        <div class="cover-title-sub">A Story of Four Friends, A Thousand Miles,<br/>and the Feelings That Never Found Their Voice</div>
+        <div class="cover-ornament">— ✦ —</div>
+        <div class="cover-author">A story written in silence, carried in the heart</div>
+      </div>
+      <div class="page-number-stamp">i</div>
+    `
+  },
+
+  /* ── PAGE 1 — INTRODUCTION ── */
+  {
+    html:`
+      <div class="page-chapter">Introduction</div>
+      <div class="page-title">The Four of Them</div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">✦</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">This is the story of four friends — three boys and one girl — whose bond was woven not just through shared laughter and weekend adventures, but through something far deeper and far more quietly complicated than any of them ever truly understood.</p>
+        <p><strong style="color:var(--ink)">Narpath</strong> — a sharp, warm-hearted soul working remotely for an MNC company, living his work-from-home life in the heart of Mysuru, spending most of his hours in front of glowing screens, yet always the first one to plan something wild and spontaneous.</p>
+        <p><strong style="color:var(--ink)">Kiran</strong> — steady, grounded, and dependable, working at a bank right there in Mysuru, the kind of friend who never needed to say much but whose presence always made everything feel complete.</p>
+        <p><strong style="color:var(--ink)">Suhas</strong> — ambitious and hardworking, a bank employee now posted in Bengaluru, someone who carried both his dreams and his responsibilities with quiet seriousness.</p>
+      </div>
+      <div class="page-number-stamp">ii</div>
+    `
+  },
+
+  /* ── PAGE 2 — INTRODUCTION CONTINUED ── */
+  {
+    html:`
+      <div class="page-chapter">Introduction — continued</div>
+      <div class="page-title">And Then — Kaveri</div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌊</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">And then — Arpitha — the girl who worked at an IT company called Pigeon in Mysuru, originally from North Karnataka, a girl who carried the warmth of her roots wherever she went.</p>
+        <p>But to these three boys, she was never just Arpitha. Out of love, out of closeness, out of that particular tenderness that only the truest friendships carry — they called her <em>Kaveri.</em></p>
+        <div class="page-quote">Just like a river — gentle on the surface, and endlessly deep beneath.</div>
+        <p>She was their Kaveri. And that name, spoken with such quiet affection, held inside it everything that words alone could never quite say.</p>
+      </div>
+      <div class="page-signature">— The Four of Them</div>
+      <div class="page-number-stamp">iii</div>
+    `
+  },
+
+  /* ── PAGE 3 — CHAPTER ONE ── */
+  {
+    html:`
+      <div class="page-date">Before She Arrived</div>
+      <div class="page-chapter">Chapter One</div>
+      <div class="page-title"><em>The Boys and Their Beautiful Madness</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🏔️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Before Kaveri walked into their lives, these three boys already had a world of their own — loud, free, and wonderfully reckless in the best possible way.</p>
+        <p>They were inseparable, and alongside them ran a fourth member — Charan, who had studied with Narpath in Mysuru and was every bit as adventurous as the rest of them. Together, the four boys were unstoppable. No plan was too sudden, no distance was too far, no mountain was too high.</p>
+        <p>They were all master's degree students then, riding the beautiful high of finishing college with jolly distinction — that rare, golden kind of academic success that still leaves enough room for life to be lived loudly and freely.</p>
+        <div class="page-quote">One evening, without much warning and with barely any planning, they decided to board a train to Murudeshwara. Just like that.</div>
+      </div>
+      <div class="page-number-stamp">1</div>
+    `
+  },
+
+  /* ── PAGE 4 — CHAPTER ONE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter One — continued</div>
+      <div class="page-chapter">The Roads They Chased</div>
+      <div class="page-title"><em>A Gang and Their Endless Horizon</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🛤️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">They spent three days wandering through Gokarna, breathing in the salt air and the freedom of it all. Then, on a rented two-wheeler, they rode through Honnavar all the way to the ancient, breathtaking Yana Caves, where the rocks rose like dark cathedral spires against the Karnataka sky.</p>
+        <p>After that grand journey, they kept going — as though the road itself was calling them by name. They climbed Netravati Hills, wandered through Shola Hills, scaled Savandurga and Shivagange, explored Bannerghatta, stood in the cool mist of Iruppu Falls, reached the misty heights of Mullayanagiri and Baba Budangiri, discovered Palakunike Falls, stood at Manjarabad Fort, wandered through Kemmanagundi, and lost themselves in the wild silence of Bhadra Wildlife Sanctuary.</p>
+        <p>They were travelling like nothing in the world could stop them — because nothing could. Complete independence. Pure, unfiltered freedom. This was their prime time.</p>
+      </div>
+      <div class="page-number-stamp">2</div>
+    `
+  },
+
+  /* ── PAGE 5 — CHAPTER ONE: CHARAN LEAVES ── */
+  {
+    html:`
+      <div class="page-date">Chapter One — continued</div>
+      <div class="page-chapter">The Day the Gang Lost One</div>
+      <div class="page-title"><em>When Four Became Three</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🚂</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Then came the moment that quietly changed things. Charan received a job offer — all the way in Thane. And just like that, he packed his life and left Mysuru behind.</p>
+        <p>The remaining three boys stood in the space he left, and for a while, the frequency of their travels slowed. The plans became less spontaneous. The laughter was still there, but something in the rhythm had shifted. Without their fourth, the road felt slightly less alive.</p>
+        <p>They were still three. But they had been four, and they knew the difference.</p>
+        <div class="page-quote">Some absences are felt not in the loudness of their leaving, but in the quiet of everything that follows.</div>
+      </div>
+      <div class="page-signature">— Three, where there had been four.</div>
+      <div class="page-number-stamp">3</div>
+    `
+  },
+
+  /* ── PAGE 6 — CHAPTER TWO ── */
+  {
+    html:`
+      <div class="page-date">A Beautiful Surprise From a Small Screen</div>
+      <div class="page-chapter">Chapter Two</div>
+      <div class="page-title"><em>The Girl on the Video Call</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">📱</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">It was during one of Suhas's video calls that everything changed. Narpath noticed her first. There she was — a girl on the other side of Suhas's screen, keeping him company through the distance, her presence warm and easy even through a phone camera.</p>
+        <p>She was, without question, beautiful. The kind of beautiful that makes you look twice and then feel slightly embarrassed for looking. Narpath and Kiran exchanged glances and then, with the particular honesty that only close friends can get away with, declared that Suhas was, without a doubt, the luckiest man alive.</p>
+        <p>She had this quality about her — a killer cuteness — the kind that doesn't announce itself loudly but simply sits there, quietly devastating. They were curious. Naturally.</p>
+      </div>
+      <div class="page-number-stamp">4</div>
+    `
+  },
+
+  /* ── PAGE 7 — CHAPTER TWO: THE CAFÉ ── */
+  {
+    html:`
+      <div class="page-date">Chapter Two — continued</div>
+      <div class="page-chapter">The Café Near SJCE</div>
+      <div class="page-title"><em>The Real-Life Surprise</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">☕</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Narpath — being exactly the kind of person he was — decided that this needed to change. He pushed Suhas to call her, to ask her to come for snacks at the café near SJCE. Suhas hesitated, believing Arpitha was introverted. But Narpath was not the kind of person who accepted resistance gracefully. He pushed, he coaxed, he teased — and finally, Suhas called her.</p>
+        <p>She said yes. Instantly. She walked to the café. Just like that.</p>
+        <p>Narpath stared. Then stared again — running through a very specific set of confused questions. The girl standing in front of him was thin, lean, a little dark-complexioned. Nothing like the impression the video call had painted. He was completely and thoroughly reverse-surprised.</p>
+        <p>But then she spoke. And within minutes she was laughing with them, completely at ease, completely herself. She dissolved into their group like she had always been there.</p>
+      </div>
+      <div class="page-number-stamp">5</div>
+    `
+  },
+
+  /* ── PAGE 8 — CHAPTER THREE ── */
+  {
+    html:`
+      <div class="page-date">Four Friends and a World That Felt Like Theirs</div>
+      <div class="page-chapter">Chapter Three</div>
+      <div class="page-title"><em>The Golden Era</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">✨</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">What followed was nothing short of extraordinary — at least by the quiet, beautiful standards of real life. All four of them became close with a speed that surprised even themselves. Every weekend became an event. Every Saturday and Sunday was a small adventure waiting to happen.</p>
+        <p>They visited the shimmering backwaters of KRS, stood at Venugopalaswamy Temple, walked along Chikkadevaiah Sagara Dam, discovered the dreamy stillness of Blue Lagoon, splashed around at Balmuri and Yedamuri, explored Madeshwara Shooting Spot and the gentle hills of Karighatta — all on a wonderfully regular basis.</p>
+        <p>On quieter Sundays, they would walk the peaceful paths of Lingambudhi Lake or Kukkarahalli Lake — and then travel twenty-five to thirty kilometres just to have breakfast near Pandavapura, where the idlis were so impossibly soft they felt like eating clouds.</p>
+      </div>
+      <div class="page-number-stamp">6</div>
+    `
+  },
+
+  /* ── PAGE 9 — CHAPTER THREE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Three — continued</div>
+      <div class="page-chapter">Trekkers, Campers, and Wanderers</div>
+      <div class="page-title"><em>Everywhere, Together</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⛺</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Their love for the outdoors only deepened as a group of four. They climbed Kodachadri Hills, conquered Kotebetta, reached the dramatic ridgeline of Eetina Bhuja, trekked through Kunti Betta and Kundadri Hills. They carried their Decathlon tent on their backs, cooked their own meals under open skies, and slept to the sound of wind moving through trees.</p>
+        <p>Beyond trekking — Shivanasamudra Falls, Raja Seat in Madikeri, the Golden Temple in Bylakuppe, the rolling green of Coorg, Bandipur and Nagarhole, K-Gudi and BR Hills, Chandragiri Fort, Kannur Beach and Thalassery Beach.</p>
+        <p>And then there were the sudden plans — the ones that began with someone saying <em>"What if we just go?"</em> and ended with all four of them in Pondicherry, or winding through Munnar, or breathing in the lush green of Wayanad, or floating through the backwaters of Alappuzha.</p>
+        <p>They went everywhere. They stopped for nothing.</p>
+      </div>
+      <div class="page-number-stamp">7</div>
+    `
+  },
+
+  /* ── PAGE 10 — CHAPTER THREE: KAVERI ── */
+  {
+    html:`
+      <div class="page-date">Chapter Three — continued</div>
+      <div class="page-chapter">The Girl Who Was One of the Boys</div>
+      <div class="page-title"><em>Their Kaveri</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💎</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">In this group, there were no boundaries between boys and girls. There was no awkwardness, no pretence, no invisible line that separated her from them. Arpitha — their Kaveri — was simply one of them. A bro. Their bro.</p>
+        <p>They teased her endlessly. They would literally lift her like an object — because she was that small, that light, that wonderfully easy to tease — and she would protest loudly and laugh even louder. They shared everything with her — their jokes, their nonsense, their naughty humour, their secrets, their worries.</p>
+        <p>She never talked badly about anyone. She respected their privacy. She never judged. She had no ego, no attitude, no interest in what they earned or owned. She simply saw their care for her, and she returned it with her whole, uncomplicated heart.</p>
+        <div class="page-quote">She was the first girl any of them had ever known with a heart that pure. She was the pure gem of their group.</div>
+      </div>
+      <div class="page-number-stamp">8</div>
+    `
+  },
+
+  /* ── PAGE 11 — CHAPTER FOUR ── */
+  {
+    html:`
+      <div class="page-date">When the Light Went Away</div>
+      <div class="page-chapter">Chapter Four</div>
+      <div class="page-title"><em>The Return to Native</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌑</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">As long as they were all in Mysuru, as long as the college days stretched on and the weekends kept coming, life felt like it would always be exactly this good. College days were jolly days. That was simply the truth of it.</p>
+        <p>But then Arpitha's college ended. And with it, the world shifted.</p>
+        <p>The job market was unkind that year. No hiring. A recession. Offer letters that never came. So she did what made sense — she went back home, back to her native place in North Karnataka, back to her family. And the three boys were left behind in Mysuru.</p>
+        <p>They still travelled. They still walked around the lakes. But something was missing — something bright and warm and irreplaceable. Every outing felt like a day without sunlight. Like a sky without a moon.</p>
+        <div class="page-quote">They had been attached to her with that much intensity, and they hadn't fully realised it until she was gone.</div>
+      </div>
+      <div class="page-number-stamp">9</div>
+    `
+  },
+
+  /* ── PAGE 12 — CHAPTER FIVE ── */
+  {
+    html:`
+      <div class="page-date">A Signature, a Chance, and a Stubborn Friend</div>
+      <div class="page-chapter">Chapter Five</div>
+      <div class="page-title"><em>The Return</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🚪</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">After nearly a month and a half to two months, the boredom set in. She missed the weekends. She missed the laughter. She missed the three of them. Then, almost by accident, she had to return to Mysuru — just for a day, just to collect her certificates and put a signature on some college documents.</p>
+        <p>But Narpath called. And Narpath, being Narpath, did not simply suggest. He insisted. He reminded her, with great affection and very little patience for excuses, that she had been lazy for far too long. He told her he had a plan.</p>
+        <p>He directed her to Pigeon — the very same IT company where he himself had spent four months as a Machine Learning and Computer Vision intern. The company had loved him enough to offer him a full-time position. But by then, he had already received an offer from a larger MNC, and so he had moved on — taking his skills and his connections with him. Those connections, it turned out, were worth everything.</p>
+      </div>
+      <div class="page-number-stamp">10</div>
+    `
+  },
+
+  /* ── PAGE 13 — CHAPTER FIVE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Five — continued</div>
+      <div class="page-chapter">The Interview That Changed Everything</div>
+      <div class="page-title"><em>Back Where She Belonged</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌅</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">It was a Saturday when she walked into Pigeon. She hadn't expected much. But luck, it seemed, had been waiting for her there. A quick, informal conversation followed — and they were impressed enough to call her back for a proper interview within a couple of days.</p>
+        <p>She got the internship offer letter. And just like that — she was back in Mysuru. The four of them were whole again.</p>
+        <p>The joy that returned was not quiet or gradual. It was immediate and overwhelming and completely, beautifully them. She even brought her sister along sometimes, and the moment the bus pulled into the stand, Narpath and the others were already there — not to help settle in, not to find a PG first — but to go. Straight from the bus stand to the road.</p>
+        <p>After two and a half to three months, the internship became a full-time offer. She accepted. She was officially, permanently, beautifully back. And Narpath — her very close friend, the one who had pushed her through that door — was perhaps the happiest of all.</p>
+      </div>
+      <div class="page-number-stamp">11</div>
+    `
+  },
+
+  /* ── PAGE 14 — CHAPTER SIX ── */
+  {
+    html:`
+      <div class="page-date">When Suhas Left for Bengaluru</div>
+      <div class="page-chapter">Chapter Six</div>
+      <div class="page-title"><em>The Shift</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌆</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Just as everything had found its rhythm again, life turned once more. Suhas received a bank PO offer. It was a good offer — the kind you don't refuse. He accepted it, packed his things, and moved to Bengaluru. And with that, the group of four was no longer in the same city.</p>
+        <p>The travels became less frequent. The sudden plans became harder to execute. The freedom and independence they had all taken for granted began to quietly dissolve. Everything had changed. Drastically. Quietly. Permanently.</p>
+        <p>In Bengaluru, Suhas found himself in the particular loneliness of a busy city where you know very few people well. Every evening, on the long commute from office to home, he would call Arpitha. She was his anchor in those hours — the voice that made the distance feel smaller. Day by day, that thread between them grew stronger.</p>
+        <div class="page-quote">When the four of them travelled together now, there was something subtly different about Suhas. A softness. A protectiveness. They noticed.</div>
+      </div>
+      <div class="page-number-stamp">12</div>
+    `
+  },
+
+  /* ── PAGE 15 — CHAPTER SEVEN ── */
+  {
+    html:`
+      <div class="page-date">Two Friends, One Conversation, and a Step Backwards</div>
+      <div class="page-chapter">Chapter Seven</div>
+      <div class="page-title"><em>The Decision That Cost Something</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⚖️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">When the other two guys in the group started to notice that shift in Suhas, they both sat down and talked about it honestly — the way close friends do when they care more about each other than about being right.</p>
+        <p>They saw what was happening. They understood it. And so, without being asked, without being told, they made a quiet and generous decision together — they would step back from that girl. The casual closeness they had always shared with Arpitha — the holding of hands, the playful hair-pulling, the arms around shoulders, the easy warmth of deep friendship — all of it, they decided, would stop. Out of respect for Suhas. Out of love for their friend.</p>
+        <p>Kiran adjusted without too much difficulty. His attachment to Arpitha, while genuine and warm, had not grown roots as deep. The change, for him, was manageable.</p>
+        <p>But for Narpath, it was something else entirely.</p>
+      </div>
+      <div class="page-number-stamp">13</div>
+    `
+  },
+
+  /* ── PAGE 16 — CHAPTER SEVEN CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Seven — continued</div>
+      <div class="page-chapter">The Weight of a WFH Life</div>
+      <div class="page-title"><em>The Oxygen He Wasn't Allowed to Breathe</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💻</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Narpath was a work-from-home employee. He spent eighty-five percent of his days sitting in front of a laptop and virtual screens — meetings through headphones, conversations through cables, connection through WiFi signals. His world, Monday through Friday, was almost entirely digital. And his mind, without him fully realising it, had been quietly starving for real human contact.</p>
+        <p>Weekends were where he breathed. And on weekends, she was there. She never judged him. She had no ego, no attitude. She was simply herself, always — and all of that had made him feel more care, more playfulness, more closeness, more ease than he had felt anywhere else in his week.</p>
+        <p>The casual things — holding her hand, playing with her hair, a side hug, a hand on her shoulder — these were not physical attachment for him. They were emotional relief. They made his overworked, screen-tired mind go quiet. They made him feel calm.</p>
+        <div class="page-quote">But for her — those were just casual touches. Just the warmth of a close friendship. Nothing more. Nothing less.</div>
+      </div>
+      <div class="page-number-stamp">14</div>
+    `
+  },
+
+  /* ── PAGE 17 — CHAPTER SEVEN: THE BREAK ── */
+  {
+    html:`
+      <div class="page-date">Chapter Seven — continued</div>
+      <div class="page-chapter">The Moment He Tried to Let Go</div>
+      <div class="page-title"><em>And Couldn't</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💔</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Narpath took the decision very seriously — because he loved Suhas friendship very respectfully, and the last thing he wanted was not to hurt his friend's feelings. So he didn't just step back gradually. He decided, in one sharp and sudden moment, to avoid her completely. To stop everything. Even something as simple as a handshake. Even holding hands.</p>
+        <p>And the moment he made that decision — the moment he tried to cut it all off at once — something inside him broke open.</p>
+        <p>Because every time he saw her after that, the feelings didn't get quieter. They got louder. They kicked harder than before. With every attempt to pull away, the pull towards her grew stronger — and he was left standing there, feeling like there was oxygen right in front of him, but he was not allowed to breathe.</p>
+        <p>It was destroying him from the inside. Quietly. Completely.</p>
+      </div>
+      <div class="page-number-stamp">15</div>
+    `
+  },
+
+  /* ── PAGE 18 — CHAPTER EIGHT ── */
+  {
+    html:`
+      <div class="page-date">Her Happiness, His Conflict</div>
+      <div class="page-chapter">Chapter Eight</div>
+      <div class="page-title"><em>The First Salary and the Heavy Heart</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">💛</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">The very next day, still carrying all of that inside him, Narpath stepped out to meet the group — pushing his mental strength, wearing a composed face, determined to do the right thing. And then he saw her. She was glowing.</p>
+        <p>Her first salary had arrived — or at least, part of it — and she was so excited she could barely contain it. She wanted to gift them something — a shirt, a piece of clothing, something small and meaningful from her very first earned money. That was who she was. That was Kaveri.</p>
+        <p>But Narpath already knew she hadn't yet received her complete first month's salary. If she spent what little she had on gifts for them, she would be left in a difficult position. He pulled Kiran aside. They talked quickly. And then, quietly, they turned it around — they gifted her instead. Both of them, together.</p>
+        <div class="page-quote">He could see the slight dimming of that bright excitement. The quiet disappointment of a girl who had wanted so badly to give — and hadn't been able to. And that knowing sat heavily in him that night.</div>
+      </div>
+      <div class="page-number-stamp">16</div>
+    `
+  },
+
+  /* ── PAGE 19 — CHAPTER NINE ── */
+  {
+    html:`
+      <div class="page-date">Two Thoughts Running at Once</div>
+      <div class="page-chapter">Chapter Nine</div>
+      <div class="page-title"><em>The Sleepless Night</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌙</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">It was late at night, and Narpath found himself sitting with two things running in his mind at the same time — and neither of them would let him rest.</p>
+        <p>On one side: her. The way she had glowed with excitement. The way she had wanted to give. The quiet disappointment she had hidden so gracefully. On the other side: the decision. How to avoid such a caring girl so suddenly.</p>
+        <p>He picked up his keyboard. He played. He switched to his guitar. He played some more. Neither helped. He watched four, five movies in a single day. He put on song after song. He opened books, read pages, closed them again.</p>
+        <div class="page-quote">Boys often feel emotional connection after physical closeness, while girls often feel physical closeness after emotional connection. He understood this. And yet, knowing it didn't make it easier to let go.</div>
+        <p>None of it worked. Every song, every story, every quiet moment only made her presence in his mind louder — more vivid, more aching, more impossible to silence.</p>
+      </div>
+      <div class="page-number-stamp">17</div>
+    `
+  },
+
+  /* ── PAGE 20 — CHAPTER NINE CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Nine — continued</div>
+      <div class="page-chapter">The Nights That Wouldn't End</div>
+      <div class="page-title"><em>Missing Her, Quietly</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⭐</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">The nights became sleepless. And in those sleepless hours, he lay there — missing her, missing the ease of it all — spending the night in a kind of silence that was anything but quiet.</p>
+        <p>It didn't distract him. It made the feeling hit more intensely than before. Every song reminded him of something. Every story felt like it was about her. Every quiet moment became louder with her absence.</p>
+        <div class="page-quote">"A person never knows when attachment happened, when care started — more than they ever planned. They begin to stay on your mind all day — in the quiet moments and the loud ones too."</div>
+        <p>It feels like little things. But those little things are enough to either carry you — or quietly destroy your mental health.</p>
+      </div>
+      <div class="page-signature">— Narpath, in the quiet of 3 a.m.</div>
+      <div class="page-number-stamp">18</div>
+    `
+  },
+
+  /* ── PAGE 21 — CHAPTER TEN ── */
+  {
+    html:`
+      <div class="page-date">What He Knew, and What He Felt Anyway</div>
+      <div class="page-chapter">Chapter Ten</div>
+      <div class="page-title"><em>The Truth He Couldn't Say</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🕯️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Somehow, carefully, Narpath pieced together the picture of where things stood between Suhas and Arpitha. They were moving toward each other. Naturally. Mutually. With the quiet certainty of two people who had found something real. They were ready, in their own time, to become life partners.</p>
+        <p>And Narpath's closeness and attachment toward Arpitha — all of it — was entirely one-sided. She didn't want any kind of serious connection with him. She saw him as a close friend. A casual, comfortable, beloved friend. Nothing more. Nothing less.</p>
+        <p>He couldn't express his feelings directly to her — it might shatter the very friendship he was trying so desperately to protect. He couldn't tell Suhas — that would disturb everything between them. So he sat with it alone.</p>
+        <div class="page-quote">He controlled his tears badly. He was feeling so alone — completely alone with his own thoughts, analysing and turning them over by himself, in the silence of his own mind.</div>
+      </div>
+      <div class="page-number-stamp">19</div>
+    `
+  },
+
+  /* ── PAGE 22 — CHAPTER TEN CONTINUED ── */
+  {
+    html:`
+      <div class="page-date">Chapter Ten — continued</div>
+      <div class="page-chapter">The Heart That Doesn't Wait for Permission</div>
+      <div class="page-title"><em>Knowing, and Feeling Anyway</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">❤️</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">He got a little depressed. He was scared to talk to Arpitha about any of it, afraid of losing the friendship and the close bond they shared. And he was afraid to say anything to his friends, afraid of disturbing what was quietly growing between Suhas and Arpitha. So he said nothing. He simply decided: avoid her. Step back. Let go.</p>
+        <div class="page-quote">He knew she can't like him the way he likes her. But he couldn't stop liking her.</div>
+        <p>That is perhaps the most quietly devastating thing a person can know about themselves — that the heart does not wait for permission, does not respond to logic, does not stop simply because stopping would be the sensible, correct, and kind thing to do.</p>
+        <p>A person never knows when attachment happened, when care started more than they ever planned. They begin to stay on your mind all day — in the quiet moments and the loud ones too. It feels like little things. But those little things are enough to either carry you or quietly destroy your mental health.</p>
+      </div>
+      <div class="page-number-stamp">20</div>
+    `
+  },
+
+  /* ── PAGE 23 — CHAPTER ELEVEN ── */
+  {
+    html:`
+      <div class="page-date">Pushing Mental Strength to Its Limit</div>
+      <div class="page-chapter">Chapter Eleven</div>
+      <div class="page-title"><em>The Hardest Thing</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⚡</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">On the very next day, they gathered again — all four of them. She noticed. Of course she noticed. She could feel that he was avoiding her — that something had shifted in him, that he was holding himself at a distance he hadn't kept before.</p>
+        <p>But for Narpath, he was pushing his mental strength so hard. All three of the others were casually moving on — laughing, talking, being themselves. But for him, he was not able to look at her freely or talk with her the way he used to.</p>
+        <div class="page-quote">Day by day, the more he tried to avoid her, the stronger the force of her presence in his mind became — similar to Newton's Third Law: how much he was trying to avoid her thought, it was rebounding with much more stronger force.</div>
+        <p>Attachment is not a joke. It ends up losing them, which can destroy you mentally — you literally feel physical pain when you miss that person. Somehow, he managed. He held himself together through the hours. And then he went home.</p>
+      </div>
+      <div class="page-number-stamp">21</div>
+    `
+  },
+
+  /* ── PAGE 24 — CHAPTER ELEVEN: THE VOLCANO ── */
+  {
+    html:`
+      <div class="page-date">Chapter Eleven — continued</div>
+      <div class="page-chapter">The Volcano at Night</div>
+      <div class="page-title"><em>When the Walls Come Down</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌋</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">After going home, those thoughts started hitting like a volcano. He started playing all his favourite songs on keyboard. Then guitar. But none of them were helping him. He watched four, five movies in a day. He listened to songs continuously. He started reading books online.</p>
+        <p>All of those things were not actually avoiding her thought for him — they made it much more intensely strong. They made the hits harder, not softer. It made him sleepless.</p>
+        <p>And he spent those sleepless nights missing her — just missing her, quietly, completely, with no way to make it stop.</p>
+        <div class="page-quote">Some feelings don't go quiet when you try to drown them. They simply learn to swim.</div>
+      </div>
+      <div class="page-signature">— Still awake. Still missing.</div>
+      <div class="page-number-stamp">22</div>
+    `
+  },
+
+  /* ── PAGE 25 — CHAPTER TWELVE ── */
+  {
+    html:`
+      <div class="page-date">The Feeling That Has No Easy Name</div>
+      <div class="page-chapter">Chapter Twelve</div>
+      <div class="page-title"><em>What the Author Knows</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🪶</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">He knows she can't like him the way he likes her. But he can't stop liking her. A person never knows when attachment happened, when care started more than they ever planned to. They begin to stay on your mind all the day — in the quiet moments and the loud ones too.</p>
+        <p>It feels like little things. But those little things are enough to care — or to destroy mental health.</p>
+        <p>Whether fortunately or unfortunately — Narpath got that experience. And he is scared of expressing his thoughts, due to the fear of losing the friendship. He truly knows she is not thinking the way he thinks — which would feel so unnecessary to her.</p>
+        <div class="page-quote">But even knowing that, he chose her — knowing that she'll never choose him back. And he keeps moving, and keeps pretending it doesn't hurt.</div>
+      </div>
+      <div class="page-number-stamp">23</div>
+    `
+  },
+
+  /* ── PAGE 26 — CHAPTER THIRTEEN ── */
+  {
+    html:`
+      <div class="page-date">The Words of the Anonymous</div>
+      <div class="page-chapter">Chapter Thirteen</div>
+      <div class="page-title"><em>What the Silence Holds</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌊</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">Even knowing she is not mine — he still feels scared of losing her.</p>
+        <p>She feels like the wind — she comes closer, and then goes far away.</p>
+        <p>For him, she felt like the silence — even when he doesn't see her, he can feel her around him.</p>
+        <p>He is afraid of losing her — even knowing she doesn't belong to him.</p>
+        <div class="page-quote">"Even knowing she is not mine — I still feel scared of losing her. She feels like the wind — she comes closer, and then goes far away. For me, she feels like the silence — even when I don't see her, I can feel her around me."</div>
+      </div>
+      <div class="page-signature">— Narpath</div>
+      <div class="page-number-stamp">24</div>
+    `
+  },
+
+  /* ── PAGE 27 — CHAPTER FOURTEEN ── */
+  {
+    html:`
+      <div class="page-date">The One Thing He Keeps Waiting For</div>
+      <div class="page-chapter">Chapter Fourteen</div>
+      <div class="page-title"><em>Waiting</em></div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">⏳</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <p class="drop-cap">He keeps waiting for the day when he sees her — and she comes back and hugs him tightly.</p>
+        <p>In his final words about himself, he says he is stuck in a situation where he doesn't know what he has to do next. Should he start to avoid? Or should he stop avoiding?</p>
+        <p>He doesn't know.</p>
+        <p>So he keeps waiting for the day when he sees her — and she comes back and hugs him tightly. He believes that — only that — will calm his heart.</p>
+        <div class="page-quote">"Should I start to avoid? Or should I stop avoiding? I don't know. So I keep waiting for the day when she comes back and hugs me tightly. I believe that — only that — will calm my heart."</div>
+      </div>
+      <div class="page-signature">— Still waiting.</div>
+      <div class="page-number-stamp">25</div>
+    `
+  },
+
+  /* ── PAGE 28 — EPILOGUE ── */
+  {
+    html:`
+      <div class="page-chapter">Epilogue</div>
+      <div class="page-title">Maybe</div>
+      <div class="page-divider"><div class="page-divider-line"></div><div class="page-divider-icon">🌹</div><div class="page-divider-line"></div></div>
+      <div class="page-body">
+        <div class="page-quote">"I'm not the most important person in your life. But I hope that when you hear my name, you'll smile and say, 'Hey — that's my friend.'"</div>
+        <p style="text-align:center; font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--ink); margin: 16px 0;">"Maybe."</p>
+        <p><em>To be continued...</em></p>
+        <p>Some feelings are never spoken aloud. Some words are never said. But they exist — quietly, stubbornly, beautifully — in the space between what we feel and what we choose to carry alone.</p>
+        <p>This is the story of those words.</p>
+        <div class="page-quote">The words he never said.</div>
+      </div>
+      <div class="page-signature">— The Anonymous Person 🌹</div>
+      <div class="page-number-stamp">26</div>
+    `
+  }
+];
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+let current    = 0;
+let isFlipping = false;
+const total    = PAGES.length;
+
+/* ══════════════════════════════════════════════════════
+   DOM
+══════════════════════════════════════════════════════ */
+const flipStage    = document.getElementById('flipStage');
+const frontContent = document.getElementById('frontContent');
+const backContent  = document.getElementById('backContent');
+const prevBtn      = document.getElementById('prevBtn');
+const nextBtn      = document.getElementById('nextBtn');
+const progressFill = document.getElementById('progressFill');
+const piDots       = document.getElementById('piDots');
+const piText       = document.getElementById('piText');
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+function renderPage(idx, container) {
+  container.innerHTML = (idx >= 0 && idx < total) ? PAGES[idx].html : '';
+}
+
+/* ══════════════════════════════════════════════════════
+   DOTS
+══════════════════════════════════════════════════════ */
+function buildDots() {
+  piDots.innerHTML = '';
+  PAGES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'pi-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => jumpTo(i));
+    piDots.appendChild(d);
+  });
+}
+function updateDots() {
+  document.querySelectorAll('.pi-dot').forEach((d,i) =>
+    d.classList.toggle('active', i === current));
+}
+
+/* ══════════════════════════════════════════════════════
+   UI
+══════════════════════════════════════════════════════ */
+function updateUI() {
+  prevBtn.disabled = current <= 0;
+  nextBtn.disabled = current >= total - 1;
+  progressFill.style.width = (total > 1 ? (current/(total-1))*100 : 100) + '%';
+  piText.textContent = `Page ${current+1} of ${total}`;
+  updateDots();
+}
+
+/* ══════════════════════════════════════════════════════
+   FLIP NEXT
+══════════════════════════════════════════════════════ */
+function goNext() {
+  if (isFlipping || current >= total - 1) return;
+  isFlipping = true;
+  renderPage(current + 1, backContent);
+  flipStage.classList.add('going-next');
+  setTimeout(() => {
+    current++;
+    flipStage.classList.remove('going-next');
+    renderPage(current, frontContent);
+    backContent.innerHTML = '';
+    isFlipping = false;
+    updateUI();
+  }, 780);
+}
+
+/* ══════════════════════════════════════════════════════
+   FLIP PREV
+══════════════════════════════════════════════════════ */
+function goPrev() {
+  if (isFlipping || current <= 0) return;
+  isFlipping = true;
+  renderPage(current - 1, backContent);
+  flipStage.classList.add('going-prev');
+  setTimeout(() => {
+    current--;
+    flipStage.classList.remove('going-prev');
+    renderPage(current, frontContent);
+    backContent.innerHTML = '';
+    isFlipping = false;
+    updateUI();
+  }, 780);
+}
+
+/* ══════════════════════════════════════════════════════
+   JUMP
+══════════════════════════════════════════════════════ */
+function jumpTo(idx) {
+  if (isFlipping || idx === current) return;
+  const dir = idx > current ? 'going-next' : 'going-prev';
+  isFlipping = true;
+  renderPage(idx, backContent);
+  flipStage.classList.add(dir);
+  setTimeout(() => {
+    current = idx;
+    flipStage.classList.remove(dir);
+    renderPage(current, frontContent);
+    backContent.innerHTML = '';
+    isFlipping = false;
+    updateUI();
+  }, 780);
+}
+
+/* ══════════════════════════════════════════════════════
+   BUTTON EVENTS
+══════════════════════════════════════════════════════ */
+prevBtn.addEventListener('click', goPrev);
+nextBtn.addEventListener('click', goNext);
+
+/* ══════════════════════════════════════════════════════
+   KEYBOARD
+══════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); goNext(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key))         { e.preventDefault(); goPrev(); }
+});
+
+/* ══════════════════════════════════════════════════════
+   TOUCH SWIPE
+══════════════════════════════════════════════════════ */
+let tx=0, ty=0, tt=0;
+document.getElementById('book').addEventListener('touchstart', e=>{
+  tx=e.touches[0].clientX; ty=e.touches[0].clientY; tt=Date.now();
+},{passive:true});
+document.getElementById('book').addEventListener('touchend', e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  const dy=e.changedTouches[0].clientY-ty;
+  if(Date.now()-tt<500 && Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.2){
+    dx<0 ? goNext() : goPrev();
+  }
+},{passive:true});
+
+/* ══════════════════════════════════════════════════════
+   BACKGROUND FX
+══════════════════════════════════════════════════════ */
+function createStars(){
+  const l=document.getElementById('starsLayer');
+  const n=window.innerWidth<600?50:110;
+  for(let i=0;i<n;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2.6+0.4;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${Math.random()*5+2}s;animation-delay:${Math.random()*6}s;`;
+    l.appendChild(s);
+  }
+}
+function createShootingStars(){
+  const l=document.getElementById('starsLayer');
+  for(let i=0;i<5;i++){
+    const s=document.createElement('div');
+    s.className='shooting-star';
+    s.style.cssText=`width:${Math.random()*120+60}px;top:${Math.random()*60}%;left:${Math.random()*40}%;animation-duration:${Math.random()*4+5}s;animation-delay:${Math.random()*12}s;`;
+    l.appendChild(s);
+  }
+}
+function createParticles(){
+  const l=document.getElementById('particlesLayer');
+  const n=window.innerWidth<600?14:30;
+  const cols=['rgba(255,255,255,0.5)','rgba(240,208,128,0.5)','rgba(217,70,239,0.4)','rgba(99,102,241,0.4)'];
+  for(let i=0;i<n;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const sz=Math.random()*4+1;
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*16+10}s;animation-delay:${Math.random()*14}s;`;
+    l.appendChild(p);
+  }
+}
+function createSparkles(){
+  const l=document.getElementById('particlesLayer');
+  for(let i=0;i<10;i++){
+    const sp=document.createElement('div');
+    sp.className='sparkle';
+    sp.style.cssText=`top:${20+Math.random()*60}%;left:${5+Math.random()*90}%;width:${Math.random()*5+2}px;height:${Math.random()*5+2}px;background:${Math.random()>0.5?'rgba(240,208,128,0.8)':'rgba(217,70,239,0.7)'};animation-duration:${Math.random()*3+2}s;animation-delay:${Math.random()*5}s;`;
+    l.appendChild(sp);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — HELPERS
+══════════════════════════════════════════════════════ */
+const CKEY      = 'diary_comments_v4';
+const isOnline  = () => !!APPS_SCRIPT_URL;
+const loadLocal = () => { try{ return JSON.parse(localStorage.getItem(CKEY))||[]; }catch{ return []; } };
+const saveLocal = a  => localStorage.setItem(CKEY, JSON.stringify(a));
+
+function timeAgo(ts){
+  const d = Date.now() - Number(ts);
+  if(d < 60000)     return 'Just now';
+  if(d < 3600000)   return Math.floor(d/60000)+'m ago';
+  if(d < 86400000)  return Math.floor(d/3600000)+'h ago';
+  if(d < 604800000) return Math.floor(d/86400000)+'d ago';
+  return new Date(Number(ts)).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+const initials = n => (n||'A').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'A';
+const GRADS = [
+  'linear-gradient(135deg,#7c3aed,#ec4899)',
+  'linear-gradient(135deg,#0891b2,#7c3aed)',
+  'linear-gradient(135deg,#059669,#0891b2)',
+  'linear-gradient(135deg,#d97706,#ec4899)',
+  'linear-gradient(135deg,#dc2626,#7c3aed)',
+  'linear-gradient(135deg,#0d9488,#9333ea)'
+];
+const grad = n => { let h=0; for(const c of(n||'A')) h=(h+c.charCodeAt(0))%GRADS.length; return GRADS[h]; };
+const esc  = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — FETCH FROM GOOGLE SHEETS
+══════════════════════════════════════════════════════ */
+async function fetchComments(){
+  if(!isOnline()) return null;
+  try{
+    const res  = await fetch(APPS_SCRIPT_URL + '?action=get&t=' + Date.now());
+    const data = await res.json();
+    return data.success ? data.comments : null;
+  }catch(e){
+    console.warn('Fetch failed:', e);
+    return null;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — POST TO GOOGLE SHEETS
+══════════════════════════════════════════════════════ */
+async function postComment(obj){
+  if(!isOnline()) return false;
+  try{
+    await fetch(APPS_SCRIPT_URL, {
+      method  : 'POST',
+      mode    : 'no-cors',
+      headers : { 'Content-Type': 'text/plain' },
+      body    : JSON.stringify(obj)
+    });
+    return true;
+  }catch(e){
+    console.warn('Post failed:', e);
+    return false;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — RENDER CARDS
+   KEY FIX: saves & restores scroll position
+   so page never jumps when DOM is updated
+══════════════════════════════════════════════════════ */
+function renderCards(arr, restoreScroll){
+  /* Save scroll before touching DOM */
+  const sy = window.scrollY;
+
+  const list = document.getElementById('commentsList');
+  const none = document.getElementById('noComments');
+  document.getElementById('commentCount').textContent = arr.length;
+
+  if(!arr.length){
+    list.innerHTML = '';
+    none.style.display = 'block';
+  } else {
+    none.style.display = 'none';
+    list.innerHTML = '';
+    [...arr].reverse().forEach((c,i) => {
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+      card.style.animationDelay = `${i*0.06}s`;
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-avatar" style="background:${grad(c.name)}">${initials(c.name)}</div>
+          <div class="card-meta">
+            <div class="card-name">${esc(c.name||'Anonymous Reader')}</div>
+            <div class="card-time">${timeAgo(c.timestamp)}</div>
+          </div>
+          <div class="card-mood">${c.mood||'😊'}</div>
+        </div>
+        <p class="card-text">${esc(c.text)}</p>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  /* Restore scroll position — prevents page jumping */
+  if(restoreScroll !== false){
+    window.scrollTo({ top: sy, behavior: 'instant' });
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — LOAD (initial page load only)
+   Does NOT restore scroll on first load — that's fine
+   because user hasn't scrolled yet
+══════════════════════════════════════════════════════ */
+async function loadAndRenderComments(){
+  const list = document.getElementById('commentsList');
+  list.innerHTML = '<div class="comments-loading">✦ Loading voices…</div>';
+
+  if(isOnline()){
+    const remote = await fetchComments();
+    if(remote !== null){
+      /* Pass false — no scroll restore needed on initial load */
+      renderCards(remote, false);
+      return;
+    }
+  }
+
+  /* Fallback to localStorage */
+  document.getElementById('infoBanner').style.display = 'block';
+  renderCards(loadLocal(), false);
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — SILENT RELOAD (after posting)
+   Always restores scroll so user stays in place
+══════════════════════════════════════════════════════ */
+async function silentReload(){
+  if(isOnline()){
+    const remote = await fetchComments();
+    if(remote !== null){
+      renderCards(remote, true);  /* true = restore scroll */
+      return;
+    }
+  }
+  renderCards(loadLocal(), true);
+}
+
+/* ══════════════════════════════════════════════════════
+   COMMENTS — SUBMIT
+══════════════════════════════════════════════════════ */
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const nEl = document.getElementById('userName');
+  const mEl = document.getElementById('userMood');
+  const cEl = document.getElementById('userComment');
+  const txt = cEl.value.trim();
+
+  /* Validate */
+  if(!txt){
+    cEl.style.animation   = 'none';
+    cEl.style.borderColor = '#ef4444';
+    cEl.style.boxShadow   = '0 0 0 3px rgba(239,68,68,0.2)';
+    cEl.offsetHeight; /* force reflow */
+    cEl.style.animation   = 'shake 0.4s ease';
+    setTimeout(()=>{
+      cEl.style.borderColor = '';
+      cEl.style.boxShadow   = '';
+      cEl.style.animation   = '';
+    }, 1000);
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  const sp  = btn.querySelector('.btn-text');
+  btn.disabled     = true;
+  sp.textContent   = '✦ Posting…';
+
+  const obj = {
+    name      : nEl.value.trim() || 'Anonymous Reader',
+    mood      : mEl.value,
+    text      : txt,
+    timestamp : Date.now()
+  };
+
+  /* Save scroll NOW before any DOM changes */
+  const scrollY = window.scrollY;
+
+  if(isOnline()){
+    await postComment(obj);
+
+    /* Clear form */
+    nEl.value = '';
+    cEl.value = '';
+    document.getElementById('charCount').textContent = '0 / 500';
+
+    /* Optimistic update — show comment immediately, keep scroll */
+    const localArr = loadLocal();
+    localArr.push(obj);
+    saveLocal(localArr);
+    renderCards(localArr, true);
+
+    /* Success feedback */
+    sp.textContent       = '✦ Posted! ✓';
+    btn.style.background = 'linear-gradient(135deg,#059669,#0891b2)';
+
+    /* After 2s — silently reload from server to get all public comments */
+    setTimeout(async () => {
+      btn.disabled         = false;
+      sp.textContent       = '✦ Leave Your Mark';
+      btn.style.background = '';
+      await silentReload(); /* scroll-safe reload */
+    }, 2000);
+
+    return;
+  }
+
+  /* ── Local-only fallback ── */
+  const arr = loadLocal();
+  arr.push(obj);
+  saveLocal(arr);
+
+  nEl.value = '';
+  cEl.value = '';
+  document.getElementById('charCount').textContent = '0 / 500';
+
+  sp.textContent       = '✦ Saved Locally ✓';
+  btn.style.background = 'linear-gradient(135deg,#d97706,#dc2626)';
+
+  renderCards(arr, true); /* scroll-safe */
+
+  setTimeout(() => {
+    btn.disabled         = false;
+    sp.textContent       = '✦ Leave Your Mark';
+    btn.style.background = '';
+  }, 2200);
+});
+
+/* Char counter */
+document.getElementById('userComment').addEventListener('input', function(){
+  document.getElementById('charCount').textContent = `${this.value.length} / 500`;
+});
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+createStars();
+createShootingStars();
+createParticles();
+createSparkles();
+buildDots();
+renderPage(0, frontContent);
+updateUI();
+loadAndRenderComments();
+</script>
+</body>
+</html> 
